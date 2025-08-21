@@ -1,0 +1,55 @@
+# ======================================
+# Common (backend & frontend) 
+# ======================================
+# files and directories
+# ======================================
+node_modules/
+dist/
+tmp/
+temp/
+
+
+# Environment variables
+# ======================================
+.env
+.env.*
+!.env.sample
+
+
+# Logs and reports
+# ======================================
+*.log
+npm-debug.log*
+coverage/
+.nyc_output/
+*.lcov
+
+
+# OS / IDE files
+# ======================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.swn
+*.swm
+*.idea/
+*.iml
+.vscode/
+.history/
+*.bak
+*.tmp
+
+
+# Node / Express (backend)
+# ======================================
+build/
+out/
+uploads/
+
+
+# Angular (frontend)
+# ======================================
+.angular/
+.angular/cache/
+.angular/config.json
