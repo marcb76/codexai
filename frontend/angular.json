@@ -13,7 +13,7 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
-      "architect": {
+      "architect": {  
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
@@ -67,7 +67,12 @@
               "buildTarget": "codexAI:build:production"
             },
             "development": {
-              "buildTarget": "codexAI:build:development"
+              "buildTarget": "codexAI:build:development",
+              "ssl": true,
+              "sslKey": "../shared/assets/ssl/eniac-corp.com.key",
+              "sslCert": "../shared/assets/ssl/eniac-corp.com.crt",
+              "port": 443,
+              "host": "codexai.eniac-corp.com"              
             }
           },
           "defaultConfiguration": "development"
