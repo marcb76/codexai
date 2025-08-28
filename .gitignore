@@ -41,11 +41,26 @@ Thumbs.db
 *.tmp
 
 
+# SSL files
+# ======================================
+/shared/assets/ssl/**/*.key
+/shared/assets/ssl/**/*.crt
+/shared/assets/ssl/**/*.pem
+/shared/assets/ssl/**/*.p12
+
+
+
+
+
 # Node / Express (backend)
 # ======================================
 build/
 out/
 uploads/
+
+
+
+
 
 
 # Angular (frontend)
