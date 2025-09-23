@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  tec-ocr:
+    build: .
+    container_name: tec-ocr
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./scripts:/app/scripts           # OCR Scripts (bash & Python)
+      - ./backend:/app/backend           # Backend Node
+      - ./frontend:/app/frontend         # Frontend Angular
+      - ./logs:/app/logs                 # Logs
+      - ./nginx:/etc/nginx               # Nginx Configuration
+    ports:
+      - "443:443"      # HTTPS Nginx
+      - "3443:3443"    # Suggested HTTPS for Node.js / Express
+    environment:
+      - TZ=America/San_Juan
+#   command: bash
