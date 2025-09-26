@@ -49,9 +49,6 @@ Thumbs.db
 /shared/assets/ssl/**/*.p12
 
 
-
-
-
 # Node / Express (backend)
 # ======================================
 build/
@@ -59,8 +56,14 @@ out/
 uploads/
 
 
-
-
+# Bash / Python / OCR (backend)
+# ======================================
+/backend/ocr/TO-DO.txt
+/backend/ocr/tmp/
+/backend/ocr/pr-license/images/
+/backend/ocr/pr-license/tmp/
+/backend/ocr/ve-cedula/images/
+/backend/ocr/ve-cedula/tmp/
 
 
 # Angular (frontend)
