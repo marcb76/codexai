@@ -1,0 +1,35 @@
+# Output json file (if not specified, defaults to mandatory)
+OUTPUT=pr-license.json
+
+# Enhance image command (optional but recommended, input and output file [INPUT and OUTPUT] will be replaced at runtime)
+#IMAGE_ENHANCE_CMD=convert INPUT -colorspace Gray -contrast-stretch 0 -sharpen 0x1 -threshold 80% OUTPUT          # TERRIBLE
+#IMAGE_ENHANCE_CMD=convert INPUT -colorspace Gray -brightness-contrast 10x20 -sharpen 0x1 -threshold 80% OUTPUT   # BAD
+#IMAGE_ENHANCE_CMD=convert INPUT -colorspace Gray -contrast-stretch 0 -sharpen 0x1 OUTPUT                         # GOOD
+IMAGE_ENHANCE_CMD=convert INPUT -colorspace Gray -threshold 50% OUTPUT                                            # PRIME
+
+# Expected size and DPI (optional but recommended, when DPI is not specified, defaults to 600)
+WIDTH=2000
+HEIGHT=1267
+DPI=600
+
+# Fields (please define at least one. See how to specify each one in the following line)
+# name|x|y|width|height|lang|psm|whitelist
+number|750|285|400|60|spa|7|0123456789
+
+firstName|600|367|750|62|spa|7|
+lastName|600|440|750|62|spa|7|
+
+address_1|600|515|750|60|spa|7|
+address_2|600|576|750|60|spa|7|
+address_3|600|635|750|60|spa|7|
+
+sex|600|785|70|40|spa|8|MF
+eyes|910|785|400|45|spa|7|
+
+birthDate|810|865|300|60|spa|8|JANFEBPRMJULGSPOCTVD0123456789
+issueDate|760|918|300|60|spa|8|JANFEBPRMJULGSPOCTVD0123456789
+e|645|971|500|60|spa|7|
+r|645|1024|500|60|spa|7|
+expiryDate|690|1075|300|60|spa|8|JANFEBPRMJULGSPOCTVD0123456789
+bloodDonor|1410|990|100|62|spa|7|YN
+bloodType|1410|1065|200|62|spa|7|
