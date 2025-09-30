@@ -1,6 +1,12 @@
 {
   "name": "codexai-frontend",
   "version": "0.0.1",
+  "description": "Frontend for codexAI",
+  "author": {
+    "name": "Marc Bonet",
+    "email": "marc.bonet@eniac-corp.com"
+  },
+  "license": "See License in /shared/assets/license.txt",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -19,11 +25,11 @@
     "@angular/platform-browser": "^19.1.0",
     "@angular/platform-browser-dynamic": "^19.1.0",
     "@angular/router": "^19.1.0",
-    "date-fns": "^4.1.0",
-    "primeng": "^19.1.4",
     "@primeng/themes": "^19.1.4",
+    "date-fns": "^4.1.0",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
+    "primeng": "^19.1.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -41,11 +47,5 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "prettier": "^3.6.2",
     "typescript": "~5.7.2"
-  },
-  "description": "Frontend for codexAI",
-  "author": {
-    "name": "Marc Bonet",
-    "email": "marc.bonet@eniac-corp.com"
-  },
-  "license": "See License in /shared/assets/license.txt"
+  }
 }
