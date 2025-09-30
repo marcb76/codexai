@@ -24,8 +24,10 @@
 #
 #
 # Sample .param layout file:
-# Output json file (if not specified, defaults to mandatory)
-#    OUTPUT=ve-cedula.json
+#    # Please note that lines starting with # are comments and will be ignored
+#    # Output json file (if not specified, defaults to ve-cedula-TIMESTAMP.json)
+#    # "TIMESTAMP" placeholder should be defined, if not it will be added (after filename and before file extension) automatically at runtime
+#    OUTPUT=ve-cedula-TIMESTAMP.json
 #    
 #    # Image rectification and crop work zone specification
 #    IMAGE_FORMAT_RECTIFICATION_SCRIPT=./ve-cedula/tec-ocr-pre-convert-to-png-ve-cedula.sh
@@ -291,7 +293,7 @@ fi
 # ---- Read expected metadata from .param (optional but recommended) -----------
 logInfo "Reading image metadata and layout information from $LAYOUT_FILE..."
 # Lines like: 
-#   OUTPUT=output.json
+#   OUTPUT=ve-cedula-TIMESTAMP.json
 #   IMAGE_FORMAT_RECTIFICATION_SCRIPT=./tec-ocr-pre-convert-to-png-ve-cedula.sh
 #   IMAGE_DESKEW_RECTIFICATION_SCRIPT=./tec-ocr-pre-deskew-ve-cedula.sh
 #   IMAGE_CROP_WORK_ZONE_SCRIPT=/.tec-ocr-pre-crop-work-zone-ve-cedula.sh
@@ -301,9 +303,16 @@ logInfo "Reading image metadata and layout information from $LAYOUT_FILE..."
 OUTPUT_FILE="$(get_param_kv OUTPUT || true)"
 OUTPUT_FILE=$(echo "$OUTPUT_FILE" | tr -d '\r')
 if [[ -z "$OUTPUT_FILE" ]]; then
-    logWarn "WARNING: OUTPUT not defined in param file. Using default 'output.json'."
-    OUTPUT_FILE="output.json"
+    logWarn "WARNING: OUTPUT not defined in param file. Using default 've-cedula-TIMESTAMP.json'."
+    OUTPUT_FILE="ve-cedula-TIMESTAMP.json"
 fi
+if [[ "$OUTPUT_FILE" != *"TIMESTAMP"* ]]; then
+    logWarn "WARNING: OUTPUT does not contain TIMESTAMP placeholder. Adding it automatically."
+    OUTPUT_FILE_NAME="${OUTPUT_FILE%.*}"
+    OUTPUT_FILE_EXT="${OUTPUT_FILE##*.}"
+    OUTPUT_FILE="${OUTPUT_FILE_NAME}-TIMESTAMP.${OUTPUT_FILE_EXT}"
+fi
+OUTPUT_FILE="${OUTPUT_FILE//TIMESTAMP/$TMP_IMAGE_FILE_TIMESTAMP}"
 IMAGE_FORMAT_RECTIFICATION_SCRIPT="$(get_param_kv IMAGE_FORMAT_RECTIFICATION_SCRIPT || true)"
 IMAGE_FORMAT_RECTIFICATION_SCRIPT=$(echo "$IMAGE_FORMAT_RECTIFICATION_SCRIPT" | tr -d '\r')
 IMAGE_DESKEW_RECTIFICATION_SCRIPT="$(get_param_kv IMAGE_DESKEW_RECTIFICATION_SCRIPT || true)"

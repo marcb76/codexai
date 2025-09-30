@@ -1,5 +1,7 @@
-# Output json file (if not specified, defaults to mandatory)
-OUTPUT=ve-cedula.json
+# Please note that lines starting with # are comments and will be ignored
+# Output json file (if not specified, defaults to ve-cedula-TIMESTAMP.json)
+# "TIMESTAMP" placeholder should be defined, if not it will be added (after filename and before file extension) automatically at runtime
+OUTPUT=ve-cedula-TIMESTAMP.json
 
 # Image rectification and crop work zone specification
 IMAGE_FORMAT_RECTIFICATION_SCRIPT=./ve-cedula/tec-ocr-pre-convert-to-png-ve-cedula.sh
@@ -8,7 +10,7 @@ IMAGE_CROP_WORK_ZONE_SCRIPT=./ve-cedula/tec-ocr-pre-crop-work-zone-ve-cedula.sh
 BASE_IMAGE_WORK_ZONE_WIDTH=440
 BASE_IMAGE_WORK_ZONE_HEIGHT=293
 
-# Enhance image command (optional but recommended, input and output file [INPUT and OUTPUT] will be replaced at runtime)
+# Enhance image command (optional but recommended, input and output file ["INPUT" and "OUTPUT" placeholders MUST BE DEFIMED] will be replaced at runtime)
 IMAGE_ENHANCE_CMD=convert "INPUT" -colorspace Gray -auto-level -contrast-stretch 0 -sharpen 0x1 -density 300 "OUTPUT"
 
 
