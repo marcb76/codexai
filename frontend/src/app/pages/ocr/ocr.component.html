@@ -1,0 +1,75 @@
+<div class="card p-4 surface-card shadow-2 border-round" [formGroup]="ocrForm">
+  <h2 class="text-primary mb-3">Experimental OCR Testing Application</h2>
+
+  <!-- Dropdown -->
+  <div class="mb-4">
+    <label for="documentType" class="block mb-2 font-medium">Document Type</label>
+    <p-dropdown
+      [options]="documentTypes"
+      formControlName="documentType"
+      placeholder="Select a document"
+      inputId="documentType"
+      class="w-full"
+    ></p-dropdown>
+  </div>
+
+  <!-- File input group -->
+  <div class="mb-4">
+    <label for="fileInput" class="block mb-2 font-medium">Upload Document</label>
+    <div class="flex gap-2">
+      <input
+        type="text"
+        [value]="selectedFileName"
+        disabled
+        class="p-inputtext w-full"
+        placeholder="No file selected"
+      />
+      <button
+        type="button"
+        class="p-button p-component"
+        (click)="fileInput.click()"
+      >
+        <span class="p-button-label">Browse</span>
+      </button>
+      <input
+        type="file"
+        #fileInput
+        hidden
+        (change)="onFileSelected($event)"
+      />
+    </div>
+  </div>
+
+  <!-- OCR button -->
+  <div class="mb-4">
+    <button
+      type="button"
+      class="p-button p-component w-full"
+      (click)="runOCR()"
+      [disabled]="!selectedFile || ocrForm.invalid"
+    >
+      <span class="p-button-label">Run OCR</span>
+    </button>
+  </div>
+
+  <!-- Result area -->
+  <div class="mb-4">
+    <h3 class="text-lg font-semibold mb-2">Result</h3>
+    <div *ngIf="ocrResult">
+      <p class="text-600 mb-1"><strong>Message:</strong> {{ ocrResult.message }}</p>
+      <pre class="bg-surface-100 p-3 border-round text-sm">{{ ocrResult.detail }}</pre>
+    </div>
+    <div *ngIf="!ocrResult" class="text-500">No result yet.</div>
+  </div>
+
+  <!-- Reset button -->
+  <div>
+    <button
+      type="button"
+      class="p-button p-button-secondary w-full"
+      (click)="resetForm()"
+    >
+      <span class="p-button-label">Reset</span>
+    </button>
+  </div>
+</div>

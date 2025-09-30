@@ -296,7 +296,7 @@ if [ "$FRONTEND_SKIP" != true ]; then
 
   # Install frontend dependencies
   echo "📦 Installing frontend dependencies..."
-  npm install primeng@19 @primeng/themes@19.1.4 primeflex@3 primeicons@7 date-fns || { echo "Failed to install frontend dependencies"; exit 1; }
+  npm install primeng@19 primeflex@3 primeicons@7 @primeuix/themes date-fns || { echo "Failed to install frontend dependencies"; exit 1; }
   npm install --save-dev prettier || { echo "Failed to install frontend dev dependencies"; exit 1; }
 
 
