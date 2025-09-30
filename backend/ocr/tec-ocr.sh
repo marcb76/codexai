@@ -73,9 +73,10 @@ usage() {
   if [ "$message" != "" ]; then
       echo "[ERROR] $message" >&2
   fi
-  logInfo "  Usage: $0 --image=path/to/image.png --layout=path/to/layout.param [--quiet] [--debug] [--help]"
+  logInfo "  Usage: $0 --image=path/to/image.png --layout=path/to/layout.param [--output=path/to/output.json] [--quiet] [--debug] [--help]"
   logInfo "         --image:  input image file (png, jpg, pdf [first page])"
   logInfo "         --layout: path to the layout .param file"
+  logInfo "         --output: path to the output JSON file (defaults to ve-cedula-TIMESTAMP.json)"
   logInfo "         --quiet:  minimal output"
   logInfo "         --debug:  debug output will be shown; intermediate files will be preserved."
   logInfo "         --help:   Show this help message"
@@ -210,11 +211,13 @@ logInfo ""
 logInfo "Parsing arguments..."
 IMAGE_FILE=""
 LAYOUT_FILE=""
+OUTPUT_FILE=""
 DEBUG_FLAG=""
 for arg in "$@"; do
   case "$arg" in
     --image=*)  IMAGE_FILE="${arg#*=}";;
     --layout=*) LAYOUT_FILE="${arg#*=}";;
+    --output=*) OUTPUT_FILE="${arg#*=}";;
     --quiet)    QUIET_MODE="1";;
     --debug)    DEBUG_MODE="1";;
     --help)     usage "";;
@@ -300,19 +303,26 @@ logInfo "Reading image metadata and layout information from $LAYOUT_FILE..."
 #   BASE_IMAGE_WORK_ZONE_WIDTH=686
 #   BASE_IMAGE_WORK_ZONE_HEIGHT=505
 #   IMAGE_ENHANCE_CMD=convert INPUT -colorspace Gray -threshold 50% OUTPUT
-OUTPUT_FILE="$(get_param_kv OUTPUT || true)"
-OUTPUT_FILE=$(echo "$OUTPUT_FILE" | tr -d '\r')
 if [[ -z "$OUTPUT_FILE" ]]; then
-    logWarn "WARNING: OUTPUT not defined in param file. Using default 've-cedula-TIMESTAMP.json'."
-    OUTPUT_FILE="ve-cedula-TIMESTAMP.json"
+  OUTPUT_FILE="$(get_param_kv OUTPUT || true)"
+  OUTPUT_FILE=$(echo "$OUTPUT_FILE" | tr -d '\r')
+  if [[ -z "$OUTPUT_FILE" ]]; then
+      logWarn "WARNING: OUTPUT not defined neither via command line nor in param file. Using default 've-cedula-TIMESTAMP.json'."
+      OUTPUT_FILE="ve-cedula-TIMESTAMP.json"
+  fi
+  if [[ "$OUTPUT_FILE" != *"TIMESTAMP"* ]]; then
+      logWarn "WARNING: OUTPUT does not contain TIMESTAMP placeholder. Adding it automatically."
+      OUTPUT_FILE_NAME="${OUTPUT_FILE%.*}"
+      OUTPUT_FILE_EXT="${OUTPUT_FILE##*.}"
+      OUTPUT_FILE="${OUTPUT_FILE_NAME}-TIMESTAMP.${OUTPUT_FILE_EXT}"
+  fi
+  OUTPUT_FILE="${OUTPUT_FILE//TIMESTAMP/$TMP_IMAGE_FILE_TIMESTAMP}"
+else
+  logInfo "Output file defined via command line: $OUTPUT_FILE"
+  if [[ -f "$OUTPUT_FILE" ]]; then
+    logWarn "WARNING: Output file $OUTPUT_FILE already exists and will be overwritten."
+  fi
 fi
-if [[ "$OUTPUT_FILE" != *"TIMESTAMP"* ]]; then
-    logWarn "WARNING: OUTPUT does not contain TIMESTAMP placeholder. Adding it automatically."
-    OUTPUT_FILE_NAME="${OUTPUT_FILE%.*}"
-    OUTPUT_FILE_EXT="${OUTPUT_FILE##*.}"
-    OUTPUT_FILE="${OUTPUT_FILE_NAME}-TIMESTAMP.${OUTPUT_FILE_EXT}"
-fi
-OUTPUT_FILE="${OUTPUT_FILE//TIMESTAMP/$TMP_IMAGE_FILE_TIMESTAMP}"
 IMAGE_FORMAT_RECTIFICATION_SCRIPT="$(get_param_kv IMAGE_FORMAT_RECTIFICATION_SCRIPT || true)"
 IMAGE_FORMAT_RECTIFICATION_SCRIPT=$(echo "$IMAGE_FORMAT_RECTIFICATION_SCRIPT" | tr -d '\r')
 IMAGE_DESKEW_RECTIFICATION_SCRIPT="$(get_param_kv IMAGE_DESKEW_RECTIFICATION_SCRIPT || true)"
