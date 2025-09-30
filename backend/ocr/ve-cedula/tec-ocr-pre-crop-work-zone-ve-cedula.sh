@@ -114,7 +114,7 @@ fi
 
 # ---- Call the Python script --------------------------------------------------
 PYTHON_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PYTHON_SCRIPT_NAME="tec-ocr-pre-crop-work-zone-ve-cedula-v3.py"
+PYTHON_SCRIPT_NAME="tec-ocr-pre-crop-work-zone-ve-cedula-v4.py"
 if [[ ! -f "$PYTHON_SCRIPT_DIR/$PYTHON_SCRIPT_NAME" ]]; then
     logError "Python script '$PYTHON_SCRIPT_DIR/$PYTHON_SCRIPT_NAME' not found."
 fi
