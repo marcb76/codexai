@@ -9,8 +9,6 @@ BASE_IMAGE_WORK_ZONE_WIDTH=440
 BASE_IMAGE_WORK_ZONE_HEIGHT=293
 
 # Enhance image command (optional but recommended, input and output file [INPUT and OUTPUT] will be replaced at runtime)
-#IMAGE_ENHANCE_CMD=convert INPUT -colorspace Gray -contrast-stretch 0 -sharpen 0x1 OUTPUT                         # GOOD
-#IMAGE_ENHANCE_CMD=convert INPUT -colorspace Gray -threshold 50% OUTPUT                                           # PRIME
 IMAGE_ENHANCE_CMD=convert "INPUT" -colorspace Gray -auto-level -contrast-stretch 0 -sharpen 0x1 -density 300 "OUTPUT"
 
 
