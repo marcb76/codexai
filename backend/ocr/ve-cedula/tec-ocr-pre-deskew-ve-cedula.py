@@ -16,7 +16,7 @@ SLICE_HALF_WIDTH = 4  # half-width in pixels for each vertical slice (total widt
 # ---- Logging functions -------------------------------------------------------
 def logInfo(msg):
     if not quiet_mode:
-        print(f"[INFO]  {msg}")
+        print(f"[INFO]  {msg}", file=sys.stdout)
 def logDebug(msg):
     if debug_mode:
         print(f"[DEBUG] {msg}", file=sys.stderr)
@@ -58,7 +58,7 @@ def find_red_y_at_column(np_img, x, half_widths=(SLICE_HALF_WIDTH, 6, 10, 14)):
     h, w, _ = np_img.shape
     for hw in half_widths:
         x1 = max(0, x - hw)
-        x2 = min(w, x + hw + 1)  # slice end is exclusive
+        x2 = min(w, x + hw + 1)                    # slice end is exclusive
         band = np_img[:, x1:x2, :]                 # (h, band_w, 3)
         red_mask = is_red_rgb(band)                # (h, band_w)
         rows_with_red = np.any(red_mask, axis=1)   # (h,)
@@ -114,7 +114,7 @@ def main():
     # Compute x positions at 30% and 60% of width
     x_left = int(round(0.30 * width))
     x_right = int(round(0.60 * width))
-    logInfo(f"Sampling vertical bands at X={x_left} and X={x_right}")
+    logInfo(f"Sampling vertical bands at x={x_left} and x={x_right}")
 
 
     # Convert to numpy for fast operations
@@ -152,9 +152,9 @@ def main():
         logDebug(f"Saved marked image to: {marked_path}")
         logDebug(f"Saved concatenated slices to: {sliced_path}")
         if y_left is not None:
-            logDebug(f"Detected line Y at X={x_left}:  {y_left}")
+            logDebug(f"Red header line detected in y at left sampling  x={x_left}: {y_left}")
         if y_right is not None:
-            logDebug(f"Detected line Y at X={x_right}: {y_right}")
+            logDebug(f"Red header line detected in y at right sampling x={x_right}: {y_right}")
 
 
     # Compute angle (in degrees). In image coords, Y grows downward.

@@ -102,14 +102,12 @@ logDebug() {
   fi
 }
 logWarn() {
-  if [[ -z "$QUIET_MODE" ]]; then
-    echo "[WARN]  $1" >&2
-  fi
+  echo "[WARN]  $1" >&2
 }
 logError() {
   echo "[ERROR] $1" >&2
-  echo
-  echo
+  echo >&2
+  echo >&2
   exit 1
 }
 
@@ -175,6 +173,7 @@ cleanup() {
 ## Entry point
 # ---- Parse arguments and initialize variables --------------------------------
 QUIET_MODE=""
+DEBUG_MODE=""
 for arg in "$@"; do
   case "$arg" in
     --quiet)    QUIET_MODE="1";;
@@ -209,7 +208,6 @@ logInfo ""
 logInfo "Parsing arguments..."
 IMAGE_FILE=""
 LAYOUT_FILE=""
-DEBUG_MODE=""
 DEBUG_FLAG=""
 for arg in "$@"; do
   case "$arg" in
@@ -319,7 +317,7 @@ BASE_IMAGE_WORK_ZONE_HEIGHT=$(echo "$BASE_IMAGE_WORK_ZONE_HEIGHT" | tr -cd '0-9'
 IMAGE_ENHANCE_CMD="$(get_param_kv IMAGE_ENHANCE_CMD || true)"
 IMAGE_ENHANCE_CMD=$(echo "$IMAGE_ENHANCE_CMD" | tr -d '\r')
 logInfo "Validating metadata and layout information..."
-if [[ -z "$IMAGE_FORMAT_RECTIFICATION_SCRIPT" ]]; then
+if [[ -n "$IMAGE_FORMAT_RECTIFICATION_SCRIPT" ]]; then
   need_cmd "$IMAGE_FORMAT_RECTIFICATION_SCRIPT"
 fi
 if [[ -n "$IMAGE_DESKEW_RECTIFICATION_SCRIPT" ]]; then
@@ -389,17 +387,19 @@ fi
 
 
 # ---- Convert input image to png if needed ------------------------------------
-logInfo ""
-logInfo ""
-logInfo "Converting input image to PNG format..."
-CONVERTED_IMAGE_FILE_NAME="${TMP_IMAGE_FILE%.*}"
-CONVERTED_IMAGE_FILE_EXT="${TMP_IMAGE_FILE##*.}"
-CONVERTED_IMAGE_FILE="${CONVERTED_IMAGE_FILE_NAME}-converted.png"
-logDebug "  $IMAGE_FORMAT_RECTIFICATION_SCRIPT --input_file=\"$IMAGE_FILE\" --output_file=\"$CONVERTED_IMAGE_FILE\" --quiet $DEBUG_FLAG"
-IMAGE_FILE="$($IMAGE_FORMAT_RECTIFICATION_SCRIPT --input_file="$IMAGE_FILE" --output_file="$CONVERTED_IMAGE_FILE" --quiet $DEBUG_FLAG)"
-IMAGE_FILE_NAME="$(basename "$IMAGE_FILE")"
-IMAGE_FILE_EXT="${IMAGE_FILE##*.}"
-logInfo "PNG format image: $IMAGE_FILE"
+if [[ -n "$IMAGE_FORMAT_RECTIFICATION_SCRIPT" ]]; then
+  logInfo ""
+  logInfo ""
+  logInfo "Converting input image to PNG format..."
+  CONVERTED_IMAGE_FILE_NAME="${TMP_IMAGE_FILE%.*}"
+  CONVERTED_IMAGE_FILE_EXT="${TMP_IMAGE_FILE##*.}"
+  CONVERTED_IMAGE_FILE="${CONVERTED_IMAGE_FILE_NAME}-converted.png"
+  logDebug "  $IMAGE_FORMAT_RECTIFICATION_SCRIPT --input_file=\"$IMAGE_FILE\" --output_file=\"$CONVERTED_IMAGE_FILE\" --quiet $DEBUG_FLAG"
+  IMAGE_FILE="$($IMAGE_FORMAT_RECTIFICATION_SCRIPT --input_file="$IMAGE_FILE" --output_file="$CONVERTED_IMAGE_FILE" --quiet $DEBUG_FLAG)"
+  IMAGE_FILE_NAME="$(basename "$IMAGE_FILE")"
+  IMAGE_FILE_EXT="${IMAGE_FILE##*.}"
+  logInfo "PNG format image: $IMAGE_FILE"
+fi
 
 
 

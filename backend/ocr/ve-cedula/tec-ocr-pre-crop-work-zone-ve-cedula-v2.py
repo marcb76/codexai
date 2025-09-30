@@ -18,7 +18,7 @@ BASE_IMAGE_BLUE_STRIPE_HEIGHT = 14
 # ---- Logging functions -------------------------------------------------------
 def logInfo(msg):
     if not quiet_mode:
-        print(f"[INFO]  {msg}")
+        print(f"[INFO]  {msg}", file=sys.stdout)
 def logDebug(msg):
     if debug_mode:
         print(f"[DEBUG] {msg}", file=sys.stderr)

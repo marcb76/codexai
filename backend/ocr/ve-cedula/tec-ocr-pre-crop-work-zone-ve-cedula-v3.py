@@ -31,7 +31,7 @@ BASE_IMAGE_WORK_ZONE_HEIGHT = BASE_IMAGE_WORK_ZONE_BOTTOM - BASE_IMAGE_WORK_ZONE
 # ---- Logging functions -------------------------------------------------------
 def logInfo(msg):
     if not quiet_mode:
-        print(f"[INFO]  {msg}")
+        print(f"[INFO]  {msg}", file=sys.stdout)
 def logDebug(msg):
     if debug_mode:
         print(f"[DEBUG] {msg}", file=sys.stderr)
@@ -136,7 +136,7 @@ def find_work_zone_coordinates(np_img, input_file, top_red_stripe_search_pct=BAS
         draw = ImageDraw.Draw(overlay)
         draw.rectangle([0, 0, width, top_red_stripe_search_region_height], fill=(255, 255, 0, 60))
         Image.alpha_composite(rgba_img, overlay).save(os.path.join("tmp", f"{base_name}-top-red-stripe-search-region.png"))
-        logDebug("Saved debug image with top red stripe search region.")
+        logDebug(f"Saved debug image with top red stripe search region to: {os.path.join('tmp', f'{base_name}-top-red-stripe-search-region.png')}")
 
 
     # --- Detect top red stripe ------------------------------------------------
@@ -153,7 +153,7 @@ def find_work_zone_coordinates(np_img, input_file, top_red_stripe_search_pct=BAS
     top_red_stripe_left = red_cols[0]
     top_red_stripe_right = red_cols[-1]
     top_red_stripe_width = top_red_stripe_right - top_red_stripe_left
-    logDebug(f"Top Red stripe detected: L={top_red_stripe_left}, T={top_red_stripe_top}, R={top_red_stripe_right}, B={top_red_stripe_bottom}")
+    logDebug(f"Top Red stripe detected: l={top_red_stripe_left}, t={top_red_stripe_top}, r={top_red_stripe_right}, b={top_red_stripe_bottom}")
 
     # --- Extrapolate work zone based on red stripe position ---
     scale_factor = top_red_stripe_width / BASE_IMAGE_TOP_RED_STRIPE_WIDTH
@@ -175,94 +175,12 @@ def find_work_zone_coordinates(np_img, input_file, top_red_stripe_search_pct=BAS
         draw.rectangle([top_red_stripe_left, top_red_stripe_top, top_red_stripe_right, top_red_stripe_bottom], outline=(255, 0, 0, 255), width=2)
         draw.rectangle([work_zone_left, work_zone_top, work_zone_right, work_zone_bottom], outline=(0, 0, 255, 255), width=3)
         debug_img.save(os.path.join("tmp", f"{base_name}-top-red-stripe-and_work-zone-detection-hints.png"))
-        logDebug("Saved debug image with top red stripe and work zone detection hints.")
+        logDebug("Saved debug image with top red stripe and work zone detection hints to: " + os.path.join("tmp", f"{base_name}-top-red-stripe-and_work-zone-detection-hints.png"))
     return work_zone_left, work_zone_top, work_zone_right, work_zone_bottom
 
 
-## --- Detect top red stripe in search region ---
-#   top_stripe_search_region = np_img[:top_stripe_search_region_height, :, :]
-#   red_mask_region = is_red_rgb(top_stripe_search_region)
-#   red_rows = numpy.where(numpy.any(red_mask_region, axis=1))[0]
-#   if red_rows.size == 0:
-#       logError("No red stripe found. Unable to determine work zone limits.", exit=True)
-#   red_stripe_top = red_rows[0]
-#   red_stripe_bottom = red_rows[-1]
-#   red_stripe_height = red_stripe_bottom - red_stripe_top + 1
-#   if red_stripe_bottom < red_stripe_top:
-#       logError("Red stripe detection failed (top/bottom). Unable to determine work zone limits.", exit=True)
-#   red_cols = numpy.where(numpy.any(red_mask_region, axis=0))[0]
-#   if red_cols.size == 0:
-#       logError(f"Red stripe detection failed (left/right). Unable to determine work zone limits.", exit=True)
-#   red_stripe_left = red_cols[0]
-#   red_stripe_right = red_cols[-1]
-#   red_stripe_width = red_stripe_right - red_stripe_left + 1
-#   if red_stripe_right < red_stripe_left:
-#       logError("Red stripe detection failed (left/right). Unable to determine work zone limits.", exit=True)
-#   logDebug(f"Red stripe detected. Left: {red_stripe_left}, top: {red_stripe_top}, right: {red_stripe_right}, bottom: {red_stripe_bottom}, width: {red_stripe_width}, height: {red_stripe_height}")
-#   if debug_mode:
-#       # Save detected red stripe position on original image
-#       red_stripe_position_img = Image.fromarray(np_img).convert("RGBA")
-#       draw = ImageDraw.Draw(red_stripe_position_img)
-#       draw.rectangle([red_stripe_left, red_stripe_top, red_stripe_right, red_stripe_bottom], outline=(255,0,0,255), width=2)
-#       red_stripe_position_img.save(os.path.join("tmp", f"{base_name}-red-stripe-detected-position.png"))
-#       logDebug(f"Saved detected red stripe position to ./tmp/{base_name}-red-stripe-detected-position.png")
-#
-#   # --- Extrapolate "VENEZOLANO" word position based on red stripe ---
-#   ven_word_left = int(red_stripe_right + (red_stripe_width * BASE_IMAGE_VEN_WORD_X_START_RELATIVE_TO_RED_STRIPE_X_START))
-#   ven_word_right = int(red_stripe_right + (red_stripe_width * BASE_IMAGE_VEN_WORD_X_START_RELATIVE_TO_RED_STRIPE_X_END))
-#   logDebug(f"Extrapolated \"VENEZOLANO\" word X position based on red stripe: Left={ven_word_left}, right={ven_word_right}")
-#
-#   if debug_mode:
-#       # Save extrapolated ven word position on original image
-#       ven_word_position_img = Image.fromarray(np_img).convert("RGBA")
-#       draw = ImageDraw.Draw(ven_word_position_img)
-#       draw.rectangle([ven_word_left - 2, height - bottom_text_search_region_height - 2,
-#                       ven_word_right + 2, height + 2], outline=(0,255,0,255), width=2)
-#       ven_word_position_img.save(os.path.join("tmp", f"{base_name}-ven-word-extrapolated-position.png"))
-#       logDebug(f"Saved extrapolated \"VENEZOLANO\" word position to ./tmp/{base_name}-ven-word-extrapolated-position.png")
-#
-#   # --- Detect "VENEZOLANO" word in search region (from bottom to top) ---
-#   ven_search_top = height - bottom_text_search_region_height
-#   ven_search_region = np_img[ven_search_top:height, ven_word_left:ven_word_right]
-#   gray_region = cv2.cvtColor(ven_search_region, cv2.COLOR_RGB2GRAY)                       # Convert to grayscale
-#   rows_with_dark = numpy.where(numpy.any(gray_region < 100, axis=1))[0]                   # Dark pixels
-#   if rows_with_dark.size == 0:
-#       logError("No dark pixels detected in search region. Please adjust search region or threshold. Unable to determine work zone limits.", exit=True)
-#   gray_region_cropped = gray_region[rows_with_dark[0]:rows_with_dark[-1]+1, :]            # Crop to remove empty space above and below
-#   black_mask = gray_region_cropped < 100                                                  # Binary mask of dark pixels
-#   cols_with_dark = numpy.any(black_mask, axis=0)                                          # Columns with dark pixels
-#   black_density_per_row = numpy.sum(black_mask[:, cols_with_dark], axis=1) / numpy.sum(cols_with_dark)    # Density of dark pixels per row
-#   threshold_density = 0.05                                                                # Minimum density to consider a row as part of the baseline
-#   black_rows = numpy.where(black_density_per_row > threshold_density)[0]
-#   if black_rows.size == 0:
-#       logError("Could not detect 'VENEZOLANO' baseline after cropping. Try adjusting threshold. Unable to determine work zone limits.", exit=True)
-#   ven_word_baseline_search_region_y = rows_with_dark[0] + black_rows[-1]                  # Last row with sufficient dark pixel density in the search region
-#   ven_word_baseline_y = ven_search_top + ven_word_baseline_search_region_y
-#   logDebug(f"'VENEZOLANO' baseline detected at y={ven_word_baseline_y} (image); y={ven_word_baseline_search_region_y} (search region)")
-#
-#
-#   # --- Finally, get work zone coordinates ---
-#   work_zone_left = red_stripe_left
-#   work_zone_top = red_stripe_top
-#   work_zone_right = red_stripe_right
-#   work_zone_bottom = ven_word_baseline_y
-#   logDebug(f"Work zone detected: Left={work_zone_left}, top={work_zone_top}, right={work_zone_right}, bottom={work_zone_bottom}")
-#   if work_zone_right < work_zone_left or work_zone_bottom < work_zone_top:
-#       logError("Work zone detection failed. Right border is less than left border or bottom border is less than top border. Unable to determine work zone limits.", exit=True)
-#   if debug_mode:
-#       # Save red mask
-#       red_mask = is_red_rgb(np_img)
-#       red_img = numpy.zeros((red_mask.shape[0], red_mask.shape[1], 3), dtype=numpy.uint8)
-#       red_img[..., 0] = red_mask * 255  # red channel
-#       Image.fromarray(red_img).save(os.path.join("tmp", f"{base_name}-mask-red.{base_ext}"))
-#
-#       # Save ven word's baseline
-#       ven_word_baseline_img = Image.fromarray(np_img).convert("RGBA")
-#       draw = ImageDraw.Draw(ven_word_baseline_img)
-#       draw.line([(0, ven_word_baseline_y), (width, ven_word_baseline_y)], fill=(255,0,0,255), width=2)
-#       ven_word_baseline_img.save(os.path.join("tmp", f"{base_name}-ven-word-baseline.png"))
-#       logDebug(f"Saved intermediate results to ./tmp")
-#   return work_zone_left, work_zone_top, work_zone_right, work_zone_bottom
+
+
 
 
 
@@ -316,7 +234,7 @@ def main():
         draw_overlay.rectangle([left, top, right, bottom], fill=(255, 255, 0, 64))  # yellow 25% opaque
         highlighted_work_zone = Image.alpha_composite(highlighted_work_zone, overlay)
         highlighted_work_zone.save(os.path.join("tmp", f"{base_name}-highlighted-work-zone.{base_ext}"))
-        logDebug(f"Saved debug image with highlighted work zone")
+        logDebug(f"Saved debug image with highlighted work zone to: " + os.path.join("tmp", f"{base_name}-highlighted-work-zone.{base_ext}"))
 
     
     # --- Save output ---

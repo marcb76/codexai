@@ -38,19 +38,17 @@ logInfo() {
   fi
 }
 logDebug() {
-  if [[ -n "$DEBUG_MODE" && -z "$QUIET_MODE" ]]; then
+  if [[ -n "$DEBUG_MODE" ]]; then
     echo "[DEBUG] $1" >&2
   fi
 }
 logWarn() {
-  if [[ -z "$QUIET_MODE" ]]; then
-    echo "[WARN]  $1" >&2
-  fi
+  echo "[WARN]  $1" >&2
 }
 logError() {
   echo "[ERROR] $1" >&2
-  echo
-  echo
+  echo >&2
+  echo >&2
   exit 1
 }
 
@@ -68,6 +66,7 @@ need_cmd python3
 
 # ---- Parse arguments ---------------------------------------------------------
 QUIET_MODE=""
+DEBUG_MODE=""
 for arg in "$@"; do
   case "$arg" in
     --quiet)         QUIET_MODE="1";;
@@ -79,7 +78,6 @@ logInfo "tec-ocr-pre-crop-work-zone-ve-cedula.sh"
 logInfo "Parsing arguments..."
 INPUT_FILE=""
 OUTPUT_FILE=""
-DEBUG_MODE=""
 QUIET_FLAG=""
 DEBUG_FLAG=""
 for arg in "$@"; do

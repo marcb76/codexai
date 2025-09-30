@@ -22,13 +22,13 @@ IMAGE_ENHANCE_CMD=convert "INPUT" -colorspace Gray -auto-level -contrast-stretch
 # Fields coordinates are based on image's reference work zone dimension. Actual fields coordinates will be extrapolated from image's actual work zone
 # Fields (please define at least one. See how to specify each one in the following line)
 # name|x|y|width|height|lang|psm|whitelist
-nationality|151|25|22|21|spa|8|EV
-number|172|25|110|21|spa|7|0123456789
+nationality|151|24|22|21|spa|10|EV
+number|172|24|110|21|spa|7|0123456789
 
-lastName|32|47|220|21|spa|7|
-firstName|32|72|220|21|spa|7|
+lastName|32|46|220|21|spa|7|
+firstName|32|71|220|21|spa|7|
 
-birthDate|97|154|93|20|spa|8|0123456789/
-civilState|188|154|102|20|spa|8|CASDOLTERIVU
-issueDate|98|214|91|19|spa|8|0123456789/
-expiryDate|190|214|89|19|spa|8|0123456789/
+birthDate|97|153|93|19|spa|8|0123456789/
+civilState|188|153|102|19|spa|8|CASDOLTERIVU
+issueDate|98|213|91|19|spa|8|0123456789/
+expiryDate|190|213|89|19|spa|8|0123456789/
