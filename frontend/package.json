@@ -8,11 +8,11 @@
   },
   "license": "See License in /shared/assets/license.txt",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "ng": "clear && ng",
+    "start": "clear && ng serve",
+    "build": "clear && ng build",
+    "watch": "clear && ng build --watch --configuration development",
+    "test": "clear && ng test",
     "format": "prettier --write '**/*.{ts,scss,html,json}'"
   },
   "private": true,
