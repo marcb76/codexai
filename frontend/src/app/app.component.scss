@@ -1,16 +1,5 @@
 :host {
   display: block;
   width: 100%;
-}
-
-.app-layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: var(--background-color);
-}
-
-.app-content {
-  flex: 1 0 auto;
-  padding: 2rem;
+  height: 100%;
 }

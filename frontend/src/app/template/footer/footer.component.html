@@ -1,8 +1,13 @@
-<footer class="surface-100 text-center py-3 mt-5 shadow-inner">
-  <div class="text-sm text-600">
-    © {{ currentYear }} CodexAI · Todos los derechos reservados.
-  </div>
-  <div class="text-xs text-500 mt-1">
-    v1.0.0 · Construido con <i class="pi pi-heart-fill text-red-500"></i> y Angular
-  </div>
+<footer class="w-full flex align-items-center justify-content-between surface-100 surface-border shadow-1 px-4 py-3 text-color-secondary">
+  <span class="flex align-items-center gap-2 text-sm text-600">
+    <strong>{{ appName }}</strong>
+    <span class="footer-narrow">
+      - Copyright © {{ currentYear }}
+      <a href="https://www.eniac.com" target="_blank" rel="noopener noreferrer">Eniac</a>
+      - All rights reserved.
+    </span>
+  </span>
+  <span class="text-xs text-500 text-right">
+    {{ appVersion }}
+  </span>
 </footer>

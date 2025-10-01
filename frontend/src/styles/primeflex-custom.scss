@@ -1,0 +1,35 @@
+// PrimeFlex customization: keep only the utility scales actually used in CodexAI
+$themeColors: 'primary', 'red';
+$colorShades: 500, 600;
+$surfaceShades: 0, 100;
+$space-scales: 0, 0.25, 0.5, 1, 1.5, 2;
+$border-scales: 0px, 1px;
+
+$font-weight-props: (
+	'font-medium': 500,
+	'font-bold': 700
+);
+
+$font-size-props: (
+	'text-xs': 0.75rem,
+	'text-sm': 0.875rem,
+	'text-base': 1rem,
+	'text-lg': 1.125rem,
+	'text-xl': 1.25rem,
+	'text-2xl': 1.5rem
+);
+
+@import 'primeflex/core/_variables';
+@import 'primeflex/core/_mixins';
+@import 'primeflex/core/_colors';
+@import 'primeflex/core/_display';
+@import 'primeflex/core/_typography';
+@import 'primeflex/core/_flexbox';
+@import 'primeflex/core/_gap';
+@import 'primeflex/core/_spacing';
+@import 'primeflex/core/_elevation';
+@import 'primeflex/core/_border';
+@import 'primeflex/core/_borderradius';
+@import 'primeflex/core/_size';
+@import 'primeflex/core/_transition';
+@import 'primeflex/core/_misc';

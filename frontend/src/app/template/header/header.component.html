@@ -1,32 +1,17 @@
-<p-menubar class="shadow-2 surface-0 border-noround p-3">
-  <ng-template pTemplate="start">
-    <div class="flex items-center gap-2">
-      <i class="pi pi-brain text-primary text-2xl"></i>
-      <span class="font-bold text-xl">CodexAI</span>
-    </div>
-  </ng-template>
+<div class="surface-100 surface-border shadow-1">
+  <p-menubar class="w-full justify-content-between" [model]="items" breakpoint="0">
+    <ng-template pTemplate="start">
+      <div class="flex items-center gap-2">
+        <img src="assets/images/codexAI-logo.png" [alt]="appName" class="header-codex-ai-logo" />
+      </div>
+    </ng-template>
 
-  <ng-template pTemplate="menu">
-    <a
-      routerLink="/ocr"
-      routerLinkActive="text-primary font-bold"
-      class="p-menuitem-link px-3 text-lg hover:text-primary transition-colors"
-    >
-      OCR
-    </a>
-    <a
-      routerLink="/settings"
-      routerLinkActive="text-primary font-bold"
-      class="p-menuitem-link px-3 text-lg hover:text-primary transition-colors"
-    >
-      Settings
-    </a>
-  </ng-template>
-
-  <ng-template pTemplate="end">
-    <div class="flex items-center gap-3">
-      <i class="pi pi-user text-2xl"></i>
-      <span class="hidden md:inline">Hola, Marc</span>
-    </div>
-  </ng-template>
-</p-menubar>
+    <ng-template pTemplate="end">
+      <div class="flex items-center gap-3">
+        <a href="https://www.eniac.com" target="_blank" rel="noopener noreferrer">
+          <img src="assets/images/eniac-logo.png" alt="Logo de Eniac" class="header-eniac-logo" />
+        </a>
+      </div>
+    </ng-template>
+  </p-menubar>
+</div>

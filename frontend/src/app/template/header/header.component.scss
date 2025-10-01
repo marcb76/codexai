@@ -3,18 +3,39 @@
   width: 100%;
 }
 
-.p-menubar {
-  border-radius: 0.5rem;
-  background-color: var(--surface-ground);
-  border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+.header-codex-ai-logo {
+  display: inline-block;
+  height: 3rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
 }
 
-.p-menubar .p-menuitem-link {
-  font-weight: 500;
-  transition: color 0.3s ease;
+.header-eniac-logo {
+  display: inline-block;
+  height: 3rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
 }
 
-.p-menubar .p-menuitem-link:hover {
-  color: var(--primary-color);
+
+
+
+/* 🔧 Media query for small screens (less than 768px) */
+@media (max-width: 768px) {
+  .header-codex-ai-logo {
+    margin-right: 0.25rem;
+  }
+
+  .header-eniac-logo {
+    margin-right: 0.25rem;
+  }
+
+
+  ::ng-deep .p-menubar .p-menubar-item-label {
+    display: none;
+  }
 }
