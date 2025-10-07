@@ -23,36 +23,41 @@ import { InputTextModule } from 'primeng/inputtext';
 export class OcrComponent {
   ocrForm: FormGroup;
   documentTypes = [
-    { label: 'pr-licencia', value: 'pr-licencia.param' },
-    { label: 'us-passport', value: 'us-passport.param' },
-    { label: 've-cedula', value: 've-cedula.param' },
+    { label: 'pr-licencia',  value: 'pr-licencia.param' },
+    { label: 'us-passport',  value: 'us-passport.param' },
+    { label: 've-cedula',    value: 've-cedula.param' },
     { label: 've-pasaporte', value: 've-pasaporte.param' },
   ];
-  selectedFile: File | null = null;
-  selectedFileName: string = '';
+  documentPicture: File | null = null;
+  documentPictureFilename: string = '';
+  documentRead: boolean = false;
   ocrResult: { message: string; detail: string } | null = null;
+
+
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.ocrForm = this.fb.group({
-      documentType: [null, Validators.required]
+      documentType: ['', Validators.required],
+      documentPicture: [null, Validators.required]
     });
   }
 
-  onFileSelected(event: Event): void {
+
+  onDocumentPictureSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      this.selectedFileName = this.selectedFile.name;
+      this.documentPicture = input.files[0];
+      this.documentPictureFilename = this.documentPicture.name;
+      this.ocrForm.patchValue({ documentPicture: this.documentPicture });
     }
   }
 
-  runOCR(): void {
-    if (!this.selectedFile || this.ocrForm.invalid) return;
 
+  onRunOCR(): void {
+    if (!this.documentPicture || this.ocrForm.invalid) return;
     const formData = new FormData();
-    formData.append('file', this.selectedFile);
+    formData.append('file', this.documentPicture);
     formData.append('documentType', this.ocrForm.value.documentType);
-
     this.http.post<any>('/api/ocr', formData).subscribe({
       next: (response) => {
         this.ocrResult = {
@@ -67,12 +72,15 @@ export class OcrComponent {
         };
       }
     });
+    this.documentRead = true;
   }
 
-  resetForm(): void {
+  
+  onReset(): void {
     this.ocrForm.reset();
-    this.selectedFile = null;
-    this.selectedFileName = '';
+    this.documentPicture = null;
+    this.documentPictureFilename = '';
+    this.documentRead = false;
     this.ocrResult = null;
   }
 }
