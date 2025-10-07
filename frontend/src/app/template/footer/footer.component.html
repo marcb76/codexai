@@ -1,13 +1,16 @@
-<footer class="w-full flex align-items-center justify-content-between surface-100 surface-border shadow-1 px-4 py-3 text-color-secondary">
-  <span class="flex align-items-center gap-2 text-sm text-600">
+<footer class="px-4 py-3 w-full flex align-items-center justify-content-between">
+  <span class="flex align-items-center gap-3">
     <strong>{{ appName }}</strong>
-    <span class="footer-narrow">
-      - Copyright © {{ currentYear }}
+    <span class="text-xs">
+      <span class="footer-narrow">
+        Copyright
+      </span>
+      © {{ currentYear }}
       <a href="https://www.eniac.com" target="_blank" rel="noopener noreferrer">Eniac</a>
       - All rights reserved.
     </span>
   </span>
-  <span class="text-xs text-500 text-right">
+  <span class="text-xs text-right">
     {{ appVersion }}
   </span>
 </footer>

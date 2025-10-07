@@ -1,9 +1,10 @@
 <div class="flex flex-column justify-content-between" [formGroup]="ocrForm">
-  <h2 class="text-primary mb-3">OCR - Experimental (Testing Application)</h2>
+  <h2 class="text-primary mb-1">OCR - Experimental</h2>
+  <h3 class="text-primary mt-1 mb-3">Parse Document</h3>
 
   <!-- Dropdown -->
-  <div class="mb-4">
-    <label for="documentType" class="block mb-2 font-medium">Document Type</label>
+  <div class="mt-4">
+    <label for="documentType" class="block mb-2 font-medium">Document Type:</label>
     <p-dropdown
       [options]="documentTypes"
       formControlName="documentType"
@@ -14,8 +15,8 @@
   </div>
 
   <!-- File input group -->
-  <div class="mb-4">
-    <label for="fileInput" class="block mb-2 font-medium">Upload Document</label>
+  <div class="mt-4">
+    <label for="fileInput" class="block mb-2 font-medium">Document:</label>
     <div class="flex gap-2">
       <input
         type="text"
@@ -40,8 +41,8 @@
     </div>
   </div>
 
-  <!-- OCR button -->
-  <div class="mb-4">
+  <!-- OCR/Reset buttons -->
+  <div class="mt-4">
     <button
       type="button"
       class="p-button p-component w-full"
@@ -50,20 +51,6 @@
     >
       <span class="p-button-label">Run OCR</span>
     </button>
-  </div>
-
-  <!-- Result area -->
-  <div class="mb-4">
-    <h3 class="text-lg font-semibold mb-2">Result</h3>
-    <div *ngIf="ocrResult">
-      <p class="text-600 mb-1"><strong>Message:</strong> {{ ocrResult.message }}</p>
-      <pre class="bg-surface-100 p-3 border-round text-sm">{{ ocrResult.detail }}</pre>
-    </div>
-    <div *ngIf="!ocrResult" class="text-500">No result yet.</div>
-  </div>
-
-  <!-- Reset button -->
-  <div>
     <button
       type="button"
       class="p-button p-button-secondary w-full"
@@ -71,5 +58,15 @@
     >
       <span class="p-button-label">Reset</span>
     </button>
+  </div>
+
+  <!-- Result area -->
+  <div class="mt-4">
+    <h3 class="text-lg font-semibold mb-2">Results</h3>
+    <div *ngIf="ocrResult">
+      <p class="text-600 mb-1"><strong>Message:</strong> {{ ocrResult.message }}</p>
+      <pre class="bg-surface-100 p-3 border-round text-sm">{{ ocrResult.detail }}</pre>
+    </div>
+    <div *ngIf="!ocrResult" class="text-500">No result yet.</div>
   </div>
 </div>

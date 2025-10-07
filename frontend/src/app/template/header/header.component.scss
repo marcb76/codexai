@@ -1,41 +1,25 @@
-:host {
-  display: block;
-  width: 100%;
-}
-
-.header-codex-ai-logo {
-  display: inline-block;
-  height: 3rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  vertical-align: middle;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
-}
-
-.header-eniac-logo {
-  display: inline-block;
-  height: 3rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  vertical-align: middle;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
-}
-
-
-
-
-/* 🔧 Media query for small screens (less than 768px) */
-@media (max-width: 768px) {
-  .header-codex-ai-logo {
-    margin-right: 0.25rem;
-  }
-
-  .header-eniac-logo {
-    margin-right: 0.25rem;
-  }
-
-
-  ::ng-deep .p-menubar .p-menubar-item-label {
+/* 🔧 Media query for small screens (less than 512px) */
+@media (max-width: 512px) {
+  :host ::ng-deep .p-menubar-item-label {
     display: none;
   }
+}
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/* PrimeNG styles                                                             */
+/* -------------------------------------------------------------------------- */
+:host {
+  border-radius: 6px 6px 0px 0px;
+}
+:host ::ng-deep .p-menubar {
+  border-radius: 6px 6px 0px 0px;
+}
+:host ::ng-deep .p-menubar img {
+  height: 2.5rem !important;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
