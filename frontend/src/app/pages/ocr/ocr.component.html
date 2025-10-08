@@ -5,6 +5,7 @@
     <div class="surface-card p-5 border-round-lg shadow-2 mb-4" [formGroup]="ocrForm">
       <h2 class="text-primary mb-4">📁 Document</h2>
       <div class="grid">
+        <!-- Row 1: Document type dropdown -->
         <div class="col-9 offset-3">
           <label for="documentType" class="block text-900 font-semibold mb-2">Type:</label>
           <p-dropdown
@@ -16,7 +17,7 @@
           ></p-dropdown>
         </div>
 
-        <!-- Fila 2: Input archivo + Browse -->
+        <!-- Row 2: Picture filename and buttons: browse, read and reset -->
         <div class="col-9">
           <label for="fileInput" class="block text-900 font-semibold mb-2">Picture:</label>
           <input
@@ -67,20 +68,44 @@
     </div>
 
     <!-- 🧠 SECTION 2: Document Data -->
-    <div class="surface-card p-5 border-round-lg shadow-2" *ngIf="ocrInvoked">
+    <div class="surface-card p-5 border-round-lg shadow-2" *ngIf="ocrServiceInvokedSuccess">
       <h2 class="text-primary mb-4">🧠 Document Data</h2>
+      <div>API Status: {{ ocrServiceResponse?.status }}</div>
+      <div>API Message: {{ ocrServiceResponse?.message }}</div>
+      <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
+      <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
+      <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds</div>
+      <div>API Response - documentLayout: {{ ocrServiceResponse?.data?.documentLayout }}</div>
+      <div>API Response - documentPictureFilename: {{ ocrServiceResponse?.data?.documentPictureFilename }}</div>
+      <div>API Response - ocrStartProcessing: {{ ocrServiceResponse?.data?.ocrStartProcessing }}</div>
+      <div>API Response - ocrEndProcessing: {{ ocrServiceResponse?.data?.ocrEndProcessing }}</div>
+      <div>API Response - ocrElapsedTime: {{ ocrServiceResponse?.data?.ocrElapsedTime }} ms</div>
       <div class="field">
-        <label for="structuredData" class="block text-900 font-semibold mb-2">Structured Data:</label>
+        <label for="structuredData" class="block text-900 font-semibold mb-2">API Response - ocrStructuredData:</label>
         <textarea
           pTextarea
           id="structuredData"
           class="w-full p-inputtextarea-resizable"
           rows="10"
           placeholder="Parsed OCR data will appear here..."
-          [value]="ocrResult?.detail"
+          [value]="ocrServiceResponse?.data?.documentData ? (ocrServiceResponse?.data?.documentData | json) : 'No data extracted.'"
           readonly
         ></textarea>
       </div>
     </div>
+
+    <!-- 🛑 SECTION 3: Errors -->
+    <div class="surface-card p-5 border-round-lg shadow-2 mt-4" *ngIf="ocrServiceInvokedError">
+      <h2 class="text-danger mb-4">🛑 Oops, we got errors...</h2>
+      <div>API Status: {{ ocrServiceResponse?.status }}</div>
+      <div>API Message: {{ ocrServiceResponse?.message }}</div>
+      <div>API Error Code: {{ ocrServiceResponse?.errorCode }}</div>
+      <div>API Errors: {{ ocrServiceResponse?.errors | json }}</div>
+      <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
+      <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
+      <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">
+        API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds
+      </div>
+    </div>    
   </div>
 </div>

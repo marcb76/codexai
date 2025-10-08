@@ -40,12 +40,12 @@ export class OcrComponent {
   documentPictureFilename: string = '';
   documentRead: boolean = false;
 
-  ocrInvoked: boolean = false;
-  ocrInvokedSuccess: boolean = false;
-  ocrInvokedError: boolean = false;
-  ocrInvokedAt: Date | null = null;
-  ocrCompletedAt: Date | null = null;
-  ocrResult: { message: string; detail: string } | null = null;
+  ocrServiceInvoked: boolean = false; 
+  ocrServiceInvokedSuccess: boolean = false;
+  ocrServiceInvokedError: boolean = false;
+  ocrServiceInvokedAt: Date | null = null;
+  ocrServiceCompletedAt: Date | null = null;
+  ocrServiceResponse: ApiResponse<OcrResponse> | null = null;
 
 
 
@@ -71,10 +71,10 @@ export class OcrComponent {
   onRunOCR(): void {
     if (!this.documentPicture || this.ocrForm.invalid) return;
     this.documentRead = false;
-    this.ocrInvoked = true;
-    this.ocrInvokedAt = new Date();
-    this.ocrCompletedAt = null;
-    this.ocrResult = null;
+    this.ocrServiceInvoked = true;
+    this.ocrServiceInvokedAt = new Date();
+    this.ocrServiceCompletedAt = null;
+    this.ocrServiceResponse = null;
     const request: OcrRequest = {
       documentLayout: this.ocrForm.value.documentLayout,
       documentPicture: this.documentPicture
@@ -87,35 +87,26 @@ export class OcrComponent {
         if (response.success && response.data) {
           // OCR successful... parse the data
           this.documentRead = true;
-          this.ocrInvokedSuccess = true;
-          this.ocrInvokedError = false;
-          this.ocrCompletedAt = new Date();
-          this.ocrResult = {
-            message: response.message,
-            detail: JSON.stringify(response.data.documentData, null, 2)
-          };
+          this.ocrServiceInvokedSuccess = true;
+          this.ocrServiceInvokedError = false;
+          this.ocrServiceCompletedAt = new Date();
+          this.ocrServiceResponse = response;
         } else {
           // OCR failed... show the errors
           this.documentRead = false;
-          this.ocrInvokedSuccess = false;
-          this.ocrInvokedError = true;
-          this.ocrCompletedAt = new Date();
-          this.ocrResult = {
-            message: response.message || 'OCR failed',
-            detail: response.errors ? JSON.stringify(response.errors, null, 2) : ''
-          };
+          this.ocrServiceInvokedSuccess = false;
+          this.ocrServiceInvokedError = true;
+          this.ocrServiceCompletedAt = new Date();
+          this.ocrServiceResponse = response;
         }
       },
       error: (err) => {
         // Network or unexpected HTTP error
         this.documentRead = false;
-        this.ocrInvokedSuccess = false;
-        this.ocrInvokedError = true;
-        this.ocrCompletedAt = new Date();
-        this.ocrResult = {
-          message: 'OCR failed.',
-          detail: err.message || 'An error occurred during OCR.'
-        };
+        this.ocrServiceInvokedSuccess = false;
+        this.ocrServiceInvokedError = true;
+        this.ocrServiceCompletedAt = new Date();
+        this.ocrServiceResponse = err
       }
     });
   }
@@ -126,11 +117,11 @@ export class OcrComponent {
     this.documentPicture = null;
     this.documentPictureFilename = '';
     this.documentRead = false;
-    this.ocrInvoked = false;
-    this.ocrInvokedSuccess = false;
-    this.ocrInvokedError = false;
-    this.ocrInvokedAt = null;
-    this.ocrCompletedAt = null;
-    this.ocrResult = null;
+    this.ocrServiceInvoked = false;
+    this.ocrServiceInvokedSuccess = false;
+    this.ocrServiceInvokedError = false;
+    this.ocrServiceInvokedAt = null;
+    this.ocrServiceCompletedAt = null;
+    this.ocrServiceResponse = null;
   }
-}
+} 
