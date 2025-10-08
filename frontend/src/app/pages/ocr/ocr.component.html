@@ -9,9 +9,9 @@
           <label for="documentType" class="block text-900 font-semibold mb-2">Type:</label>
           <p-dropdown
             [options]="documentTypes"
-            formControlName="documentType"
+            formControlName="documentLayout"
             placeholder="Please select document type"
-            inputId="documentType"
+            inputId="documentLayout"
             class="w-full"
           ></p-dropdown>
         </div>
@@ -67,12 +67,12 @@
     </div>
 
     <!-- 🧠 SECTION 2: Document Data -->
-    <div class="surface-card p-5 border-round-lg shadow-2" *ngIf="documentRead">
+    <div class="surface-card p-5 border-round-lg shadow-2" *ngIf="ocrInvoked">
       <h2 class="text-primary mb-4">🧠 Document Data</h2>
       <div class="field">
         <label for="structuredData" class="block text-900 font-semibold mb-2">Structured Data:</label>
         <textarea
-          p-inputtextarea
+          pTextarea
           id="structuredData"
           class="w-full p-inputtextarea-resizable"
           rows="10"

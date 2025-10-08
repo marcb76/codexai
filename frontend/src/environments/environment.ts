@@ -1,8 +1,8 @@
 // src/environments/environment.ts
 
 export const environment = {
-  // Production flag - always true in this file
-  production: true,
+  // Production flag - never true in this file
+  production: false,
 
   // Application information
   appName: 'codexAI',

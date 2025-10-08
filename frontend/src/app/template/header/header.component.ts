@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
-import { environment } from '../../../environments/environments';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +15,6 @@ export class HeaderComponent {
   appName = environment.appName;
   items: MenuItem[] = [
     { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: '/' },
-    { label: 'Settings', icon: 'pi pi-fw pi-cog', routerLink: '/settings' },
+  //{ label: 'Settings', icon: 'pi pi-fw pi-cog', routerLink: '/settings' },
   ];
 }

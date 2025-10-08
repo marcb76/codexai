@@ -1,7 +1,7 @@
+// /pages/ocr/ocr.component.ts
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -9,35 +9,50 @@ import { Validators } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
+
+import { documentTypes as sharedDocumentTypes } from '../../../../../shared/model/ocr-request.model';
+import { DocumentLayout } from '../../../../../shared/model/ocr-request.model';
+import { OcrRequest } from '../../../../../shared/model/ocr-request.model';
+import { OcrResponse } from '../../../../../shared/model/ocr-response.model';
+import { ApiResponse } from '../../../../../shared/model/api-response.model';
+import { OcrService } from '../../services/ocr.service';
 
 @Component({
   selector: 'app-ocr',
   standalone: true,
   imports: [
     CommonModule, 
-    HttpClientModule,
-    ReactiveFormsModule, DropdownModule, ButtonModule, InputTextModule],
+    ReactiveFormsModule, 
+    DropdownModule, 
+    ButtonModule, 
+    InputTextModule,
+    TextareaModule
+  ],
   templateUrl: './ocr.component.html',
   styleUrls: ['./ocr.component.scss']
 })
 export class OcrComponent {
   ocrForm: FormGroup;
-  documentTypes = [
-    { label: 'pr-licencia',  value: 'pr-licencia.param' },
-    { label: 'us-passport',  value: 'us-passport.param' },
-    { label: 've-cedula',    value: 've-cedula.param' },
-    { label: 've-pasaporte', value: 've-pasaporte.param' },
-  ];
+  documentTypes = [...sharedDocumentTypes];
+  documentLayout: DocumentLayout | null = null;
   documentPicture: File | null = null;
   documentPictureFilename: string = '';
   documentRead: boolean = false;
+
+  ocrInvoked: boolean = false;
+  ocrInvokedSuccess: boolean = false;
+  ocrInvokedError: boolean = false;
+  ocrInvokedAt: Date | null = null;
+  ocrCompletedAt: Date | null = null;
   ocrResult: { message: string; detail: string } | null = null;
 
 
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+
+  constructor(private fb: FormBuilder, private ocrService: OcrService) {
     this.ocrForm = this.fb.group({
-      documentType: ['', Validators.required],
+      documentLayout: ['', Validators.required],
       documentPicture: [null, Validators.required]
     });
   }
@@ -55,32 +70,67 @@ export class OcrComponent {
 
   onRunOCR(): void {
     if (!this.documentPicture || this.ocrForm.invalid) return;
-    const formData = new FormData();
-    formData.append('file', this.documentPicture);
-    formData.append('documentType', this.ocrForm.value.documentType);
-    this.http.post<any>('/api/ocr', formData).subscribe({
-      next: (response) => {
-        this.ocrResult = {
-          message: response.message || 'OCR completed successfully.',
-          detail: response.detail || JSON.stringify(response, null, 2)
-        };
+    this.documentRead = false;
+    this.ocrInvoked = true;
+    this.ocrInvokedAt = new Date();
+    this.ocrCompletedAt = null;
+    this.ocrResult = null;
+    const request: OcrRequest = {
+      documentLayout: this.ocrForm.value.documentLayout,
+      documentPicture: this.documentPicture
+    };
+
+    // Call the OCR service
+    this.ocrService.runOcr(request).subscribe({
+      next: (response: ApiResponse<OcrResponse>) => {
+        // No errors in HTTP, check the response
+        if (response.success && response.data) {
+          // OCR successful... parse the data
+          this.documentRead = true;
+          this.ocrInvokedSuccess = true;
+          this.ocrInvokedError = false;
+          this.ocrCompletedAt = new Date();
+          this.ocrResult = {
+            message: response.message,
+            detail: JSON.stringify(response.data.documentData, null, 2)
+          };
+        } else {
+          // OCR failed... show the errors
+          this.documentRead = false;
+          this.ocrInvokedSuccess = false;
+          this.ocrInvokedError = true;
+          this.ocrCompletedAt = new Date();
+          this.ocrResult = {
+            message: response.message || 'OCR failed',
+            detail: response.errors ? JSON.stringify(response.errors, null, 2) : ''
+          };
+        }
       },
       error: (err) => {
+        // Network or unexpected HTTP error
+        this.documentRead = false;
+        this.ocrInvokedSuccess = false;
+        this.ocrInvokedError = true;
+        this.ocrCompletedAt = new Date();
         this.ocrResult = {
           message: 'OCR failed.',
           detail: err.message || 'An error occurred during OCR.'
         };
       }
     });
-    this.documentRead = true;
   }
-
+  
   
   onReset(): void {
     this.ocrForm.reset();
     this.documentPicture = null;
     this.documentPictureFilename = '';
     this.documentRead = false;
+    this.ocrInvoked = false;
+    this.ocrInvokedSuccess = false;
+    this.ocrInvokedError = false;
+    this.ocrInvokedAt = null;
+    this.ocrCompletedAt = null;
     this.ocrResult = null;
   }
 }
