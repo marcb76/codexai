@@ -1,17 +1,19 @@
 {
-    "name": "codexAI-backend",
-    "version": "1.0.0",
+    "name": "codexai-backend",
+    "version": "0.0.1",
     "description": "Backend for codexAI",
-    "main": "codexAI.js",
+    "author": {
+        "name": "Marc Bonet",
+        "email": "marc.bonet@eniac-corp.com"
+    },
+    "license": "See License in ../shared/assets/license.txt",
+    "private": true,
     "scripts": {
         "start": "clear && node ./codexAI.js",
         "dev": "clear && nodemon ./codexAI.js",
         "test": "echo 'Error: no test specified' && exit 1",
         "format": "prettier --write '**/*.{js,json,scss,css,ts}'"
     },
-    "author": "Marc Bonet <marc.bonet@eniac-corp.com>",
-    "license": "See License in ../shared/assets/license.txt",
-    "private": true,
     "dependencies": {
         "cors": "^2.8.5",
         "dotenv": "^17.2.1",
@@ -23,5 +25,6 @@
     "devDependencies": {
         "nodemon": "^3.1.10",
         "prettier": "^3.6.2"
-    }
+    },
+    "main": "codexAI.js"
 }
