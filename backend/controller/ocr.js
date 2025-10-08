@@ -28,7 +28,7 @@ const post = async (req, res) => {
     //// In the meantime, simulate a delay for OCR processing (e.g., 250 ms)
     await new Promise(resolve => setTimeout(resolve, 250));
     //// Randomly decide if OCR should fail (for testing frontend error handling)
-    const simulateError = Math.random() < 0.5; // 50% chance
+    const simulateError = Math.random() < 0.125; // 12.5% chance
     const ocrEndProcessing = new Date();
 
 

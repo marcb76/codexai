@@ -21,10 +21,7 @@ export class OcrService extends ApiService {
    * Call the OCR in the backend
    * Returns an ApiResponse<OcrResponse>
    */
-  runOcr(request: OcrRequest): Observable<ApiResponse<OcrResponse>> {
-    const formData = new FormData();
-    formData.append('file', request.documentPicture);
-    formData.append('documentLayout', request.documentLayout);
-    return this.post<OcrResponse>(`ocr`, formData);
+  runOcr(formData: FormData) {
+    return this.post<OcrResponse>('ocr', formData);
   }
 }

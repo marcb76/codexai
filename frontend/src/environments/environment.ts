@@ -11,7 +11,7 @@ export const environment = {
 
   // Backend configuration
   backendServer: 'codexai.eniac-corp.com',
-  backendPort: 3443,
+  backendPort: 8443,
   backendUseHttps: true,
   backendAPITimeout: 15000, // in milliseconds
   get backendAPIUrl(): string {

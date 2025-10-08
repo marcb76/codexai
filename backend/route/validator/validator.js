@@ -3,7 +3,7 @@
 // Import modules
 const { StatusCodes, ReasonPhrases } = require('http-status-codes');
 const { validationResult } = require('express-validator');
-const errorHandler = require('../../controller/errorHandler/errorHandler');
+const errorHandler = require('../errorHandler/errorHandler');
 
 
 

@@ -30,6 +30,11 @@
           />
         </div>
         <div class="col-3">
+          <input 
+            type="file"
+            #fileInput 
+            hidden
+            (change)="onDocumentPictureSelected($event)" />
           <button
             pButton
             type="button"
@@ -40,12 +45,6 @@
             (click)="fileInput.click()"
             pTooltip="Choose the image file"
           ></button>
-          <input 
-            type="file"
-            formControlName="documentPicture"
-            #fileInput 
-            hidden
-            (change)="onDocumentPictureSelected($event)" />
           <button
             pButton
             type="button"
@@ -80,7 +79,7 @@
       <div>API Response - ocrStartProcessing: {{ ocrServiceResponse?.data?.ocrStartProcessing }}</div>
       <div>API Response - ocrEndProcessing: {{ ocrServiceResponse?.data?.ocrEndProcessing }}</div>
       <div>API Response - ocrElapsedTime: {{ ocrServiceResponse?.data?.ocrElapsedTime }} ms</div>
-      <div class="field">
+      <div class="field mt-2">
         <label for="structuredData" class="block text-900 font-semibold mb-2">API Response - ocrStructuredData:</label>
         <textarea
           pTextarea
@@ -97,20 +96,20 @@
     <!-- 🛑 SECTION 3: Errors -->
     <div class="surface-card p-5 border-round-lg shadow-2 mt-4" *ngIf="ocrServiceInvokedError">
       <h2 class="text-danger mb-4">🛑 Oops, we got errors...</h2>
-      <div *ngIf="ocrServiceResponse?.status === 0" class="text-orange-700 font-semibold mb-2">
+      <div *ngIf="ocrServiceResponse?.status === 0" class="text-orange-900 font-semibold mb-2">
         🚫 Unable to connect to the OCR service.<br />
         Please verify that the backend is online and your network connection is stable.
       </div>
-      <div *ngIf="ocrServiceResponse?.status !== 0" class="text-red-700 font-semibold mb-2">
-        ❌ Error {{ ocrServiceResponse?.status }} - {{ ocrServiceResponse?.message }}
-        <div>API Error Code: {{ ocrServiceResponse?.errorCode }}</div>
-        <div>API Errors: {{ ocrServiceResponse?.errors | json }}</div>
-        <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
-        <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
-        <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">
-          API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds
-        </div>
+      <div *ngIf="ocrServiceResponse?.status !== 0" class="text-red-900 font-semibold mb-4">
+        ❌ Error in OCR service
       </div>
+      <div>API Status: {{ ocrServiceResponse?.status }}</div>
+      <div>API Message: {{ ocrServiceResponse?.message }}</div>
+      <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
+      <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
+      <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds</div>
+      <div>API Error Code: {{ ocrServiceResponse?.errorCode }}</div>
+      <div>API Errors: {{ ocrServiceResponse?.errors | json }}</div>
     </div>
   </div>
 </div>

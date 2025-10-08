@@ -16,7 +16,7 @@ const removeFileExtension = (fileName) => {
 console.log(__filename + ': Loading routes...');
 fs.readdirSync(ROUTES_PATH).forEach((file) => {
   const fileName = removeFileExtension(file);
-  if (fileName !== 'index' && fileName !== 'validator' && fileName !== 'middleware') {
+  if (fileName !== 'index' && fileName !== 'validator' && fileName !== 'middleware' && fileName !== 'errorHandler') {
     console.log(__filename + `:   ${fileName}`);
     router.use(`/${fileName}`, require(`./${fileName}`));
   }
