@@ -106,7 +106,16 @@ export class OcrComponent {
         this.ocrServiceInvokedSuccess = false;
         this.ocrServiceInvokedError = true;
         this.ocrServiceCompletedAt = new Date();
-        this.ocrServiceResponse = err
+        this.ocrServiceResponse = {
+          success: false,
+          status: err.status || 0,
+          message:
+            err.status === 0
+              ? 'Cannot reach the OCR service. The server might be offline or there is a network issue.'
+              : err.error?.message || err.message || 'An unexpected error occurred.',
+          errorCode: err.error?.errorCode,
+          errors: err.error?.errors || [],
+        };
       }
     });
   }
