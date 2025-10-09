@@ -64,7 +64,7 @@ export class OcrComponent {
       this.documentPicture = input.files[0];
       this.documentPictureFilename = this.documentPicture.name;
       this.ocrForm.patchValue({ documentPicture: this.documentPicture });
-      console.log('Selected document picture:', this.documentPicture);
+      //console.log('Selected document picture:', this.documentPicture);
     }
   }
 
@@ -77,8 +77,8 @@ export class OcrComponent {
     this.ocrServiceCompletedAt = null;
     this.ocrServiceResponse = null;
     const request = new FormData();
-    console.log('Document Layout:', this.ocrForm.value.documentLayout);
-    console.log('Document Picture:', this.documentPicture);
+    //console.log('Document Layout:', this.ocrForm.value.documentLayout);
+    //console.log('Document Picture:', this.documentPicture);
     request.append('documentLayout', this.ocrForm.value.documentLayout);
     request.append('documentPicture', this.documentPicture, this.documentPicture.name);
 
