@@ -15,7 +15,7 @@ services:
       - ./nginx:/etc/nginx               # Nginx Configuration
     ports:
       - "443:443"      # HTTPS Nginx
-      - "3443:3443"    # Suggested HTTPS for Node.js / Express
+      - "8443:8443"    # Suggested HTTPS for Node.js / Express
     environment:
       - TZ=America/San_Juan
 #   command: bash

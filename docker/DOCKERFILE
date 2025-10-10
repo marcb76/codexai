@@ -68,10 +68,10 @@ COPY ./scripts/ocr-container-start.sh /usr/local/bin/ocr-container-start.sh
 RUN chmod +x /usr/local/bin/ocr-container-start.sh
 
 # -------------------------------
-# Exposed Ports: 443 (Nginx), 3443 (Node.js / Express)
+# Exposed Ports: 443 (Nginx), 8443 (Node.js / Express)
 # -------------------------------
 EXPOSE 443
-EXPOSE 3443
+EXPOSE 8443
 
 # -------------------------------
 # Entrypoint
