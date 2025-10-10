@@ -37,6 +37,21 @@ const post = async (req, res) => {
     const ocrStartProcessing = new Date();
 
 
+    // If OCR simulation mode is enabled, simulate an OCR processign error randomly
+    if (config.ocrSimulationMode) {
+      // Simulate OCR processing
+      // For demonstration purposes, we will mock the OCR result
+      await new Promise(resolve => setTimeout(resolve, 250));
+      //// Randomly decide if OCR should fail (for testing frontend error handling)
+      const simulateError = Math.random() < 0.25; // 25% chance
+      if (simulateError) {
+        // Simulated OCR error response
+        const ocrEndProcessing = new Date();
+        throw new Error('Unexpected error during OCR processing (simulated)', { cause: new Error('Simulated OCR processing error for testing purposes.') });
+      }    
+    }
+
+
     // Invoke the OCR command-line tool
     try {
       const ocrCommand = config.ocrCommand;

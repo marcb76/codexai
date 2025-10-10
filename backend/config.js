@@ -43,9 +43,10 @@ const config = {
 };
 
 
-// Create upload directory if it doesn't exist
-if (!fs.existsSync(config.ocrDocumentPictureUploadDirectory)) {
-  fs.mkdirSync(config.ocrDocumentPictureUploadDirectory, { recursive: true });
+// Initialize upload directory... remove it if it exists and create a new one
+if (fs.existsSync(config.ocrDocumentPictureUploadDirectory)) {
+  fs.rmSync(config.ocrDocumentPictureUploadDirectory, { recursive: true, force: true });
 }
+fs.mkdirSync(config.ocrDocumentPictureUploadDirectory, { recursive: true });
 
 module.exports = config;
