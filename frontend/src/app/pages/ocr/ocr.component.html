@@ -73,7 +73,7 @@
       <div>API Message: {{ ocrServiceResponse?.message }}</div>
       <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
       <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
-      <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds</div>
+      <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) }} ms</div>
       <div>API Response - documentLayout: {{ ocrServiceResponse?.data?.documentLayout }}</div>
       <div>API Response - documentPictureFilename: {{ ocrServiceResponse?.data?.documentPictureFilename }}</div>
       <div>API Response - ocrStartProcessing: {{ ocrServiceResponse?.data?.ocrStartProcessing }}</div>
