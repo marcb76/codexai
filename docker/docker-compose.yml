@@ -1,21 +1,20 @@
-version: "3.9"
-
 services:
   tec-ocr:
-    build: .
-    container_name: tec-ocr
+    image: marcb76/tec-codexai:1.0
+    container_name: tec-codexai
     restart: unless-stopped
     tty: true
     stdin_open: true
     volumes:
-      - ./scripts:/app/scripts           # OCR Scripts (bash & Python)
-      - ./backend:/app/backend           # Backend Node
-      - ./frontend:/app/frontend         # Frontend Angular
+#     - ./backend:/app/backend           # Backend Node
+#     - ./frontend:/app/frontend         # Frontend Angular
+#     - ./ssl:/app/ssl                   # SSL Certificates
+#     - ./nginx:/etc/nginx               # Nginx Configuration
+      - ./uploads:/app/uploads           # Uploaded files
       - ./logs:/app/logs                 # Logs
-      - ./nginx:/etc/nginx               # Nginx Configuration
     ports:
       - "443:443"      # HTTPS Nginx
-      - "8443:8443"    # Suggested HTTPS for Node.js / Express
+      - "8443:8443"    # HTTPS for Node.js / Express
     environment:
       - TZ=America/San_Juan
 #   command: bash

@@ -7,6 +7,7 @@ node_modules/
 dist/
 tmp/
 temp/
+frontend/test/
 
 
 # Environment variables
@@ -43,10 +44,10 @@ Thumbs.db
 
 # SSL files
 # ======================================
-/shared/assets/ssl/**/*.key
-/shared/assets/ssl/**/*.crt
-/shared/assets/ssl/**/*.pem
-/shared/assets/ssl/**/*.p12
+shared/assets/ssl/**/*.key
+shared/assets/ssl/**/*.crt
+shared/assets/ssl/**/*.pem
+shared/assets/ssl/**/*.p12
 
 
 # Node / Express (backend)
@@ -58,12 +59,12 @@ uploads/
 
 # Bash / Python / OCR (backend)
 # ======================================
-/backend/ocr/TO-DO.txt
-/backend/ocr/tmp/
-/backend/ocr/pr-license/images/
-/backend/ocr/pr-license/tmp/
-/backend/ocr/ve-cedula/images/
-/backend/ocr/ve-cedula/tmp/
+backend/ocr/TO-DO.txt
+backend/ocr/tmp/
+backend/ocr/pr-license/images/
+backend/ocr/pr-license/tmp/
+backend/ocr/ve-cedula/images/
+backend/ocr/ve-cedula/tmp/
 
 
 # Angular (frontend)
@@ -71,3 +72,13 @@ uploads/
 .angular/
 .angular/cache/
 .angular/config.json
+
+
+# Docker deployment
+# ======================================
+docker/backend/
+docker/frontend/
+docker/ssl/**/*.key
+docker/ssl/**/*.crt
+docker/ssl/**/*.pem
+docker/ssl/**/*.p12
