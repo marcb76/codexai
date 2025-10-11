@@ -3,6 +3,7 @@
 // Import modules
 const { StatusCodes, ReasonPhrases } = require('http-status-codes');
 const fs = require('fs');
+const path = require('path');
 const { execFile } = require('child_process');
 const { promisify } = require('util');
 const execFileAsync = promisify(execFile);
@@ -55,14 +56,20 @@ const post = async (req, res) => {
     // Invoke the OCR command-line tool
     try {
       const ocrCommand = config.ocrCommand;
+      const ocrLayouts = config.ocrLayouts;
       if (config.debugMode)
-        console.log(__filename + ':   [DEBUG] Invoking OCR ' + (config.ocrSimulationMode ? 'SIMULATION' : '') + ` command: ${ocrCommand} --image=${file.path} --layout=${documentLayout} --output=${jsonFilename} --quiet`);
+        console.log(__filename + ':   [DEBUG] Invoking OCR ' + (config.ocrSimulationMode ? 'SIMULATION' : '') + ` command: ${ocrCommand} --image=${file.path} --layout=${ocrLayouts}/${documentLayout} --output=${jsonFilename} --quiet`);
       const { stdout, stderr } = await execFileAsync(ocrCommand, [
         `--image=${file.path}`,
-        `--layout=${documentLayout}`,
+        `--layout=${ocrLayouts}/${documentLayout}`,
         `--output=${jsonFilename}`,
         `--quiet`
-      ], { timeout: config.ocrCommandTimeout, shell: config.ocrPlatform === 'windows' ? true : false });
+      ], 
+      { 
+        timeout: config.ocrCommandTimeout, 
+        shell: config.ocrPlatform === 'windows' ? true : false,
+        cwd: path.dirname(ocrCommand)
+      });
       if (config.debugMode) {
         console.log(__filename + `:   [DEBUG] OCR command output:       ${stdout}`);
         if (stderr) console.error(__filename + `:   [DEBUG] OCR command error output: ${stderr}`);

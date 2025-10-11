@@ -43,10 +43,23 @@ const config = {
 };
 
 
-// Initialize upload directory... remove it if it exists and create a new one
+// Initialize upload directory... remove its contents if it exists, otherwise create it
 if (fs.existsSync(config.ocrDocumentPictureUploadDirectory)) {
-  fs.rmSync(config.ocrDocumentPictureUploadDirectory, { recursive: true, force: true });
+  const files = fs.readdirSync(config.ocrDocumentPictureUploadDirectory);
+  if (files.length > 0) {
+    console.log(__filename + `Clearing existing files from upload directory: ${config.ocrDocumentPictureUploadDirectory}`);
+    files.forEach((file) => {
+      const filePath = path.join(config.ocrDocumentPictureUploadDirectory, file);
+      if (fs.lstatSync(filePath).isFile()) {
+        fs.unlinkSync(filePath);
+      }
+    });
+    console.log(__filename + 'Upload directory cleared.');
+  } 
+} else {
+  console.log(__filename + `Creating upload directory: ${config.ocrDocumentPictureUploadDirectory}`);
+  fs.mkdirSync(config.ocrDocumentPictureUploadDirectory, { recursive: true });
+  console.log(__filename + 'Upload directory created.');
 }
-fs.mkdirSync(config.ocrDocumentPictureUploadDirectory, { recursive: true });
 
 module.exports = config;
