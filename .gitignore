@@ -9,6 +9,14 @@ tmp/
 temp/
 frontend/test/
 backend/tec-ocr-simulation-output.json
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.flv
+*.wmv
+*.m4v
+*.webm
 
 
 # Environment variables

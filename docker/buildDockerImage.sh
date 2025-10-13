@@ -55,8 +55,9 @@ echo ""
 # ------------------------------------------------------------------------------
 echo ""
 echo ""
-echo "🎯 Creating codexAI's backend folder..."
+echo "🎯 Refreshing codexAI's backend folder..."
 if [ ! -d "./backend" ]; then
+  echo "🎯   codexAI's backend folder does not exist. Creating it now..."
   mkdir -p backend || { echo "Failed to create backend directory"; exit 1; }
   echo "✅ Backend folder created successfully."
 else
@@ -76,8 +77,9 @@ echo "✅ Backend folder refreshed successfully."
 # ------------------------------------------------------------------------------
 echo ""
 echo ""
-echo "🎯 Creating codexAI's frontend folder..."
+echo "🎯 Refreshing codexAI's frontend folder..."
 if [ ! -d "./frontend" ]; then
+  echo "🎯   codexAI's frontend folder does not exist. Creating it now..."
   mkdir -p frontend || { echo "Failed to create frontend directory"; exit 1; }
   echo "✅ Frontend folder created successfully."
 else

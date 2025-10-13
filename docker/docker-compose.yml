@@ -2,6 +2,9 @@ services:
   tec-ocr:
     image: marcb76/tec-codexai:1.0
     container_name: tec-codexai
+    hostname: codexai.eniac-corp.com
+    extra_hosts:
+      - "codexai.eniac-corp.com:127.0.0.1"
     restart: unless-stopped
     tty: true
     stdin_open: true
