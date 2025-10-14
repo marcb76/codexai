@@ -2,14 +2,22 @@
   <!-- Logo izquierda -->
   <ng-template pTemplate="start">
     <div class="flex align-items-center ml-2 mr-2 gap-2">
-      <img src="assets/images/codexAI-logo.png" [alt]="appName" class="h-3rem"/>
+      <img 
+        [src]="isDarkMode ? 'assets/images/codexAIobs-logo.png' : 'assets/images/codexAI-logo.png'" 
+        [alt]="appName" 
+      />
     </div>
   </ng-template>
   <!-- Logo derecha -->
   <ng-template pTemplate="end">
     <div class="flex align-items-center mr-2 gap-2">
+      <app-theme-toggle></app-theme-toggle>
       <a href="https://www.eniac.com" target="_blank" rel="noopener noreferrer">
-        <img src="assets/images/eniac-logo.png" alt="Eniac" class="h-3rem"/>
+        <img 
+          [src]="isDarkMode ? 'assets/images/eniac-logoobs.png' : 'assets/images/eniac-logo.png'" 
+          alt="Eniac" 
+          class="h-3rem"
+        />
       </a>
     </div>
   </ng-template>

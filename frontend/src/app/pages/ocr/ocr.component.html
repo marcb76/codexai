@@ -1,115 +1,132 @@
 <div class="grid justify-content-center">
   <div class="col-12 md:col-8 lg:col-6 xl:col-4">
-
     <!-- 📁 SECTION 1: Document -->
-    <div class="surface-card p-5 border-round-lg shadow-2 mb-4" [formGroup]="ocrForm">
-      <h2 class="text-primary mb-4">📁 Document</h2>
-      <div class="grid">
-        <!-- Row 1: Document type dropdown -->
-        <div class="col-9 offset-3">
-          <label for="documentType" class="block text-900 font-semibold mb-2">Type:</label>
-          <p-dropdown
-            [options]="documentTypes"
+    <div class="surface-0 shadow-2 border-round p-4 mb-4">
+      <h2 class="text-xl font-bold text-900 mb-4">📁 Document</h2>
+      
+      <form [formGroup]="ocrForm" class="grid">
+        <!-- Document type dropdown -->
+        <div class="col-12 mb-3">
+          <label class="block text-900 font-medium mb-2">Document Type</label>
+          <p-dropdown 
             formControlName="documentLayout"
-            placeholder="Please select document type"
-            inputId="documentLayout"
-            class="w-full"
-          ></p-dropdown>
+            [options]="documentTypes"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Select document type"
+            class="w-full">
+          </p-dropdown>
         </div>
 
-        <!-- Row 2: Picture filename and buttons: browse, read and reset -->
-        <div class="col-9">
-          <label for="fileInput" class="block text-900 font-semibold mb-2">Picture:</label>
-          <input
-            pInputText
-            type="text"
-            [value]="documentPictureFilename"
-            disabled
-            class="w-full"
-            placeholder="Please select a file (.png, .jpg, .jpeg, .pdf)"
-          />
+        <!-- Picture filename and buttons -->
+        <div class="col-12 grid">
+          <div class="col-9">
+            <label class="block text-900 font-medium mb-2">Picture</label>
+            <input
+              type="text"
+              [value]="documentPictureFilename"
+              disabled
+              placeholder="Please select a file (.png, .jpg, .jpeg, .pdf)"
+              class="w-full p-inputtext border-round-md"
+            />
+          </div>
+          <div class="col-3 flex flex-column gap-2">
+            <input 
+              type="file"
+              #fileInput 
+              hidden
+              (change)="onDocumentPictureSelected($event)" />
+            <button
+              type="button"
+              (click)="fileInput.click()"
+              pButton
+              label="Browse"
+              icon="pi pi-upload"
+              class="p-button-info p-button-sm"
+            >
+            </button>
+            <button
+              type="button"
+              (click)="onRunOCR()"
+              [disabled]="!documentPicture || ocrForm.invalid"
+              pButton
+              label="Read"
+              icon="pi pi-play"
+              class="p-button-success p-button-sm"
+            >
+            </button>
+            <button
+              type="button"
+              (click)="onReset()"
+              pButton
+              label="Reset"
+              icon="pi pi-refresh"
+              class="p-button-danger p-button-sm"
+            >
+            </button>
+          </div>
         </div>
-        <div class="col-3">
-          <input 
-            type="file"
-            #fileInput 
-            hidden
-            (change)="onDocumentPictureSelected($event)" />
-          <button
-            pButton
-            type="button"
-            label="Browse"
-            icon="pi pi-folder-open"
-            class="p-button-success w-full"
-            style="margin-top: 26px;"
-            (click)="fileInput.click()"
-            pTooltip="Choose the image file"
-          ></button>
-          <button
-            pButton
-            type="button"
-            label="Read"
-            icon="pi pi-search"
-            class="p-button-success w-full mt-2"
-            (click)="onRunOCR()"
-            [disabled]="!documentPicture || ocrForm.invalid"
-          ></button>
-          <button
-            pButton
-            type="button"
-            label="Reset"
-            icon="pi pi-refresh"
-            class="p-button-outlined w-full mt-2"
-            (click)="onReset()"
-          ></button>
-        </div>
-      </div>
+      </form>
     </div>
 
     <!-- 🧠 SECTION 2: Document Data -->
-    <div class="surface-card p-5 border-round-lg shadow-2" *ngIf="ocrServiceInvokedSuccess">
-      <h2 class="text-primary mb-4">🧠 Document Data</h2>
-      <div>API Status: {{ ocrServiceResponse?.status }}</div>
-      <div>API Message: {{ ocrServiceResponse?.message }}</div>
-      <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
-      <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
-      <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds</div>
-      <div>API Response - documentLayout: {{ ocrServiceResponse?.data?.documentLayout }}</div>
-      <div>API Response - documentPictureFilename: {{ ocrServiceResponse?.data?.documentPictureFilename }}</div>
-      <div>API Response - ocrStartProcessing: {{ ocrServiceResponse?.data?.ocrStartProcessing }}</div>
-      <div>API Response - ocrEndProcessing: {{ ocrServiceResponse?.data?.ocrEndProcessing }}</div>
-      <div>API Response - ocrElapsedTime: {{ ocrServiceResponse?.data?.ocrElapsedTime }} ms</div>
-      <div class="field mt-2">
-        <label for="structuredData" class="block text-900 font-semibold mb-2">API Response - ocrStructuredData:</label>
-        <textarea
-          pTextarea
-          id="structuredData"
-          class="w-full p-inputtextarea-resizable"
-          rows="10"
-          placeholder="Parsed OCR data will appear here..."
-          [value]="ocrServiceResponse?.data?.documentData ? (ocrServiceResponse?.data?.documentData | json) : 'No data extracted.'"
-          readonly
-        ></textarea>
+    <div *ngIf="ocrServiceInvokedSuccess" class="surface-0 shadow-2 border-round p-4 mb-4">
+      <h2 class="text-xl font-bold text-900 mb-4">🧠 Document Data</h2>
+      
+      <div class="grid mb-4">
+        <div class="col-12 text-sm text-600">
+          <div>API Status: {{ ocrServiceResponse?.status }}</div>
+          <div>API Message: {{ ocrServiceResponse?.message }}</div>
+          <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
+          <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
+          <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds</div>
+          <div>API Response - documentLayout: {{ ocrServiceResponse?.data?.documentLayout }}</div>
+          <div>API Response - documentPictureFilename: {{ ocrServiceResponse?.data?.documentPictureFilename }}</div>
+          <div>API Response - ocrStartProcessing: {{ ocrServiceResponse?.data?.ocrStartProcessing }}</div>
+          <div>API Response - ocrEndProcessing: {{ ocrServiceResponse?.data?.ocrEndProcessing }}</div>
+          <div>API Response - ocrElapsedTime: {{ ocrServiceResponse?.data?.ocrElapsedTime }} ms</div>
+        </div>
+      </div>
+      
+      <div class="grid">
+        <div class="col-12">
+          <label class="block text-900 font-medium mb-2">API Response - ocrStructuredData</label>
+          <textarea
+            id="structuredData"
+            rows="10"
+            placeholder="Parsed OCR data will appear here..."
+            [value]="ocrServiceResponse?.data?.documentData ? (ocrServiceResponse?.data?.documentData | json) : 'No data extracted.'"
+            readonly
+            class="w-full p-inputtext"
+          ></textarea>
+        </div>
       </div>
     </div>
 
     <!-- 🛑 SECTION 3: Errors -->
-    <div class="surface-card p-5 border-round-lg shadow-2 mt-4" *ngIf="ocrServiceInvokedError">
-      <h2 class="text-danger mb-4">🛑 Oops, we got errors...</h2>
-      <div *ngIf="ocrServiceResponse?.status === 0" class="text-orange-900 font-semibold mb-2">
-        🚫 Unable to connect to the OCR service.<br />
+    <div *ngIf="ocrServiceInvokedError" class="surface-0 shadow-2 border-round p-4 mb-4">
+      <h2 class="text-xl font-bold text-900 mb-4">🛑 Oops, we got errors...</h2>
+      
+      <div *ngIf="ocrServiceResponse?.status === 0" class="p-3 mb-3 border-round surface-orange-50 border-orange-200 text-orange-800">
+        <strong>🚫 Unable to connect to the OCR service.</strong><br />
         Please verify that the backend is online and your network connection is stable.
       </div>
-      <div *ngIf="ocrServiceResponse?.status !== 0" class="text-red-900 font-semibold mb-4">
-        ❌ Error in OCR service
+      
+      <div *ngIf="ocrServiceResponse?.status !== 0" class="p-3 mb-3 border-round surface-red-50 border-red-200 text-red-800">
+        <strong>❌ Error in OCR service</strong>
       </div>
-      <div>API Status: {{ ocrServiceResponse?.status }}</div>
-      <div>API Message: {{ ocrServiceResponse?.message }}</div>
-      <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
-      <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
-      <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds</div>
-      <div>API Error Code: {{ ocrServiceResponse?.errorCode }}</div>
-      <div>API Errors: {{ ocrServiceResponse?.errors | json }}</div>
+      
+      <div class="grid text-sm text-600">
+        <div class="col-12">
+          <div>API Status: {{ ocrServiceResponse?.status }}</div>
+          <div>API Message: {{ ocrServiceResponse?.message }}</div>
+          <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
+          <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
+          <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds</div>
+          <div>API Error Code: {{ ocrServiceResponse?.errorCode }}</div>
+          <div>API Errors: {{ ocrServiceResponse?.errors | json }}</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
