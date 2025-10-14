@@ -54,14 +54,32 @@ export class OcrComponent {
   }
 
 
+  onDocumentTypeSelected(event: any): void {
+    this.documentLayout = event.value;
+    this.ocrForm.patchValue({ documentLayout: this.documentLayout });
+    this.onResetResults(event);
+  }
+  
+  
   onDocumentPictureSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.documentPicture = input.files[0];
       this.documentPictureFilename = this.documentPicture.name;
       this.ocrForm.patchValue({ documentPicture: this.documentPicture });
-      //console.log('Selected document picture:', this.documentPicture);
+      this.onResetResults(event);
     }
+  }
+
+
+  onResetResults(event: any): void {
+    this.documentRead = false;
+    this.ocrServiceInvoked = false;
+    this.ocrServiceInvokedSuccess = false;
+    this.ocrServiceInvokedError = false;
+    this.ocrServiceInvokedAt = null;
+    this.ocrServiceCompletedAt = null;
+    this.ocrServiceResponse = null;
   }
 
 
@@ -69,6 +87,8 @@ export class OcrComponent {
     if (!this.documentPicture || this.ocrForm.invalid) return;
     this.documentRead = false;
     this.ocrServiceInvoked = true;
+    this.ocrServiceInvokedSuccess = false;
+    this.ocrServiceInvokedError = false;
     this.ocrServiceInvokedAt = new Date();
     this.ocrServiceCompletedAt = null;
     this.ocrServiceResponse = null;
@@ -98,7 +118,7 @@ export class OcrComponent {
           this.ocrServiceResponse = response;
         }
       },
-      error: (err) => {
+      error: (err) =>{
         // Network or unexpected HTTP error
         this.documentRead = false;
         this.ocrServiceInvokedSuccess = false;
@@ -116,19 +136,15 @@ export class OcrComponent {
         };
       }
     });
-  }
-  
-  
-  onReset(): void {
+}
+
+
+
+onReset(): void {
     this.ocrForm.reset();
+    this.documentLayout = null;
     this.documentPicture = null;
     this.documentPictureFilename = '';
-    this.documentRead = false;
-    this.ocrServiceInvoked = false;
-    this.ocrServiceInvokedSuccess = false;
-    this.ocrServiceInvokedError = false;
-    this.ocrServiceInvokedAt = null;
-    this.ocrServiceCompletedAt = null;
-    this.ocrServiceResponse = null;
+    this.onResetResults(null);
   }
 } 

@@ -3,10 +3,10 @@
 
 // List of supported document types
 export const documentTypes = [
-  { label: 'Puerto Rico - Licencia de Conducir',  value: 'pr-licencia.param'  },
-  { label: 'USA - Passaporte',                    value: 'us-passport.param'  },
-  { label: 'Venezuela - Cédula de Identidad',     value: 've-cedula.param'    },
-  { label: 'Venezuela - Pasaporte',               value: 've-pasaporte.param' },
+  { label: 'Puerto Rico - Licencia de Conducir',  value: 'pr-licencia.param',  disabled: true },
+  { label: 'USA - Passaporte',                    value: 'us-passport.param',  disabled: true },
+  { label: 'Venezuela - Cédula de Identidad',     value: 've-cedula.param',    disabled: false },
+  { label: 'Venezuela - Pasaporte',               value: 've-pasaporte.param', disabled: true },
 ] as const;
 
 

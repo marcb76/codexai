@@ -1,0 +1,38 @@
+# /etc/nginx/mime.types
+types {
+    text/html                                                                 html htm shtml;
+    text/css                                                                  css;
+    application/javascript                                                    js mjs;
+    application/wasm                                                          wasm;
+    application/json                                                          json;
+    text/xml                                                                  xml;
+    application/rss+xml                                                       rss;
+    application/atom+xml                                                      atom;
+    application/xhtml+xml                                                     xhtml;
+    application/pdf                                                           pdf;
+    application/zip                                                           zip;
+    application/gzip                                                          gz tgz;
+    application/x-tar                                                         tar;
+    application/x-sh                                                          sh;
+    application/x-shockwave-flash                                             swf;
+    application/vnd.ms-fontobject                                             eot;
+    application/font-woff                                                     woff;
+    application/font-woff2                                                    woff2;
+    application/vnd.ms-excel                                                  xls;
+    application/vnd.ms-powerpoint                                             ppt;
+    application/msword                                                        doc;
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document   docx;
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet         xlsx;
+    application/vnd.openxmlformats-officedocument.presentationml.presentation pptx;
+    audio/mpeg                                                                mp3;
+    audio/ogg                                                                 ogg;
+    video/mp4                                                                 mp4;
+    video/ogg                                                                 ogv;
+    image/gif                                                                 gif;
+    image/jpeg                                                                jpeg jpg;
+    image/png                                                                 png;
+    image/svg+xml                                                             svg svgz;
+    image/webp                                                                webp;
+    text/plain                                                                txt;
+    text/x-component                                                          htc;
+}

@@ -1,0 +1,8 @@
+# .dockerignore
+TO-DO.txt
+backend/node_modules/
+backend/ocr/pr-license/images/
+backend/ocr/ve-cedula/images/
+dist
+.git
+*.log

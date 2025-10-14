@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ============================================
-# codexAI full stack project
+# codexAI full stack project - OCR solution
 # Workspace initialization script
 # 
 # Marc Bonet

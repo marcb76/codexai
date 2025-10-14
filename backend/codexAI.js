@@ -20,7 +20,8 @@ backend.use('/api', require('./route'));
 // Server main functions
 const startServer = async () => {
   // Load environment variables from .env file
-  console.log(__filename + ': Server current configuration (loaded via environment):');
+  console.log(__filename + ': Server  configuration (loaded via environment):');
+  console.log(__filename + `:   debugMode: ${config.debugMode}`);
   console.log(__filename + `:   backendHttpPort: ${config.backendHttpPort}`);
   console.log(__filename + `:   backendHttpsPort: ${config.backendHttpsPort}`);
   console.log(__filename + `:   backendSSLCertificate: ${config.backendSSLCertificate}`);
@@ -28,6 +29,12 @@ const startServer = async () => {
   console.log(__filename + `:   backendTimeInSecondsForGracefulShutdown: ${config.backendTimeInSecondsForGracefulShutdown}`);
   console.log(__filename + `:   ocrDocumentPictureUploadDirectory: ${config.ocrDocumentPictureUploadDirectory}`);
   console.log(__filename + `:   ocrDocumentPictureMaxFileSizeInMB: ${config.ocrDocumentPictureMaxFileSizeInMB}`);
+  console.log(__filename + `:   ocrHome: ${config.ocrHome}`);
+  console.log(__filename + `:   ocrLayouts: ${config.ocrLayouts}`);
+  console.log(__filename + `:   ocrCommand: ${config.ocrCommand}`);
+  console.log(__filename + `:   ocrCommandTimeout: ${config.ocrCommandTimeout} ms`);
+  console.log(__filename + `:   ocrSimulationMode: ${config.ocrSimulationMode}`);
+  console.log(__filename + `:   ocrPlatform: ${config.ocrPlatform}`);
 
 
   // Load SSL certificate
