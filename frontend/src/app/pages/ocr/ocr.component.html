@@ -21,7 +21,7 @@
         <!-- Picture filename and buttons -->
         <div class="col-12 grid">
           <div class="col-9">
-            <label class="block text-900 font-medium mb-2">Picture</label>
+            <label class="block text-900 font-medium mb-2 mt-3">Picture</label>
             <input
               type="text"
               [value]="documentPictureFilename"
@@ -114,19 +114,19 @@
       
       <div *ngIf="ocrServiceResponse?.status !== 0" class="p-3 mb-3 border-round surface-red-50 border-red-200 text-red-800">
         <strong>❌ Error in OCR service</strong>
-      </div>
-      
-      <div class="grid text-sm text-600">
-        <div class="col-12">
-          <div>API Status: {{ ocrServiceResponse?.status }}</div>
-          <div>API Message: {{ ocrServiceResponse?.message }}</div>
-          <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
-          <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
-          <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds</div>
-          <div>API Error Code: {{ ocrServiceResponse?.errorCode }}</div>
-          <div>API Errors: {{ ocrServiceResponse?.errors | json }}</div>
+        
+        <div class="grid text-sm text-600">
+          <div class="col-12">
+            <div>API Status: {{ ocrServiceResponse?.status }}</div>
+            <div>API Message: {{ ocrServiceResponse?.message }}</div>
+            <div>API Invocation at: {{ ocrServiceInvokedAt | date:'medium' }}</div>
+            <div>API Completed at: {{ ocrServiceCompletedAt | date:'medium' }}</div>
+            <div *ngIf="ocrServiceInvokedAt && ocrServiceCompletedAt">API Duration: {{ (ocrServiceCompletedAt.getTime() - ocrServiceInvokedAt.getTime()) / 1000 }} seconds</div>
+            <div>API Error Code: {{ ocrServiceResponse?.errorCode }}</div>
+            <div>API Errors: {{ ocrServiceResponse?.errors | json }}</div>
+          </div>
         </div>
-      </div>
+      </div>  
     </div>
   </div>
 </div>
