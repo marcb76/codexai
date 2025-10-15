@@ -8,8 +8,6 @@ import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { TextareaModule } from 'primeng/textarea';
 
 import { documentTypes as sharedDocumentTypes } from '../../../../../shared/model/ocr-request.model';
 import { DocumentLayout } from '../../../../../shared/model/ocr-request.model';
@@ -23,11 +21,9 @@ import { OcrService } from '../../services/ocr.service';
   standalone: true,
   imports: [
     CommonModule, 
-    ReactiveFormsModule, 
-    DropdownModule, 
-    ButtonModule, 
-    InputTextModule,
-    TextareaModule
+    ReactiveFormsModule,
+    DropdownModule,
+    ButtonModule
   ],
   templateUrl: './ocr.component.html',
   styleUrls: ['./ocr.component.scss']

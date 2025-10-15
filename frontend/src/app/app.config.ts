@@ -4,6 +4,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient } from '@angular/common/http';
 import { providePrimeNG } from 'primeng/config';
 import Lara from '@primeuix/themes/lara';
+import { definePreset } from '@primeuix/themes';
 
 import { routes } from './app.routes';
 
@@ -17,7 +18,8 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Lara,
         options: {
-          scheme: 'light-indigo'
+          scheme: 'light-indigo',
+          darkModeSelector: '.dark'
         }
       }
     })
