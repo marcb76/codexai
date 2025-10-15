@@ -9,7 +9,7 @@ export class ThemeService {
   public isDarkMode$ = this.isDarkMode.asObservable();
 
   constructor() {
-    // Cargar preferencia guardada
+    // Set the saved theme preference from localStorage if available
     const savedTheme = localStorage.getItem('darkMode');
     if (savedTheme !== null) {
       this.isDarkMode.next(JSON.parse(savedTheme));
@@ -25,8 +25,8 @@ export class ThemeService {
 
   applyTheme(): void {
     const isDark = this.isDarkMode.value;
-    
-    // Aplicar clase dark para Tailwind CSS
+
+    // Apply dark class for Tailwind CSS
     if (isDark) {
       document.documentElement.classList.add('dark');
     } else {

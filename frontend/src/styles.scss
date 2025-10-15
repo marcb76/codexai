@@ -4,13 +4,16 @@
 /* ========================================================================== */
 
 /* -------------------------------------------------------------------------- */
-/*   PrimeFlex utilities (mantener para layout)                              */
+/* PrimeFlex utilities (keep for layout)                                      */
 /* -------------------------------------------------------------------------- */
 @use 'primeflex/primeflex.scss';
 @use 'primeicons/primeicons.css';
 
+
+
+
 /* -------------------------------------------------------------------------- */
-/*   Estilos base mínimos (solo lo esencial)                                 */
+/* Minimal styles (only essential styles)                                     */
 /* -------------------------------------------------------------------------- */
 html, body { 
   height: 100%; 
@@ -25,8 +28,11 @@ app-root {
   min-height: 100vh;
 }
 
+
+
+
 /* -------------------------------------------------------------------------- */
-/*   Ajustar tamaños de fuente globalmente                                   */
+/* Adjust global font sizes                                                   */
 /* -------------------------------------------------------------------------- */
 h1, .text-6xl { font-size: 1.75rem; } /* 28px */
 h2, .text-5xl { font-size: 1.5rem; } /* 24px */
@@ -40,7 +46,12 @@ h6, .text-xl { font-size: 1rem; } /* 16px */
 .text-sm { font-size: 0.875rem; } /* 14px */
 .text-xs { font-size: 0.8125rem; } /* 13px */
 
-/* Ajustar tamaños de PrimeNG */
+
+
+
+/* -------------------------------------------------------------------------- */
+/*   Adjust PrimeNG sizes                                                     */
+/* -------------------------------------------------------------------------- */
 .p-button {
   font-size: 0.9375rem; /* 15px */
   padding: 0.625rem 1rem;
@@ -60,11 +71,14 @@ h6, .text-xl { font-size: 1rem; } /* 16px */
   padding: 0.625rem 1rem;
 }
 
+
+
+
+
 /* -------------------------------------------------------------------------- */
-/*   Modo oscuro nativo de PrimeNG                              */
+/* PrimeNG dark mode                                                          */
 /* -------------------------------------------------------------------------- */
 .dark {
-  /* PrimeNG maneja automáticamente los colores en modo oscuro */
   background-color: #1a1a1a;
   color: #ffffff;
 }
