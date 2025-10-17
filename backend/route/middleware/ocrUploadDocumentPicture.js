@@ -1,6 +1,7 @@
 // routes/middleware/ocr-uploadDocumentPicture.js
 
 // Import modules
+const { StatusCodes, ReasonPhrases } = require('http-status-codes');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -16,7 +17,7 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     // Keep original name with a timestamp prefix to avoid collisions
-    cb(null, `${Date.now()}-${file.originalname}`);
+    cb(null, `${Date.now()}-${file.originalname.replace(/\s+/g, '-')}`);
   }
 });
 
@@ -42,14 +43,14 @@ const upload = multer({storage, fileFilter, limits: { fileSize: config.ocrDocume
 const uploadDocumentPicture = (req, res, next) => {
   upload.single('documentPicture')(req, res, (err) => {
     if (err) {
-      return res.status(400).json({
-        status: 'Bad Request',
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        status: ReasonPhrases.BAD_REQUEST,
         errors: [{ msg: err.message }]
       });
     }
     if (!req.file) {
-      return res.status(400).json({
-        status: 'Bad Request',
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        status: ReasonPhrases.BAD_REQUEST,
         errors: [{ msg: 'Please provide a document picture' }]
       });
     }

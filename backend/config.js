@@ -10,7 +10,7 @@ const fs = require('fs');
 const tecOCRHome = path.resolve(__dirname, './ocr');
 const tecOCRLayouts = path.resolve(__dirname, './ocr/layouts');
 const tecOCRScript = 'tec-ocr.sh';
-const tecOCRSimulationScript = 'tec-ocr-simulation.bat';
+const tecOCRSimulationScript = (process.platform === 'win32') ? 'tec-ocr-simulation.bat' : 'tec-ocr-simulation.sh';
 const tecOCRCommandTimeout = 30000; // 30 seconds
 
 
