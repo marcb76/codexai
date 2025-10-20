@@ -70,10 +70,18 @@ uploads/
 # ======================================
 backend/ocr/TO-DO.txt
 backend/ocr/tmp/
+backend/ocr/es-passport/images/
+backend/ocr/es-passport/tmp/
 backend/ocr/pr-license/images/
 backend/ocr/pr-license/tmp/
+backend/ocr/pr-sss/images/
+backend/ocr/pr-sss/tmp/
+backend/ocr/us-ead/images/
+backend/ocr/us-ead/tmp/
 backend/ocr/ve-cedula/images/
 backend/ocr/ve-cedula/tmp/
+backend/ocr/ve-passport/images/
+backend/ocr/ve-passport/tmp/
 
 
 # Angular (frontend)

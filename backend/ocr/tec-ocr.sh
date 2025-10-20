@@ -118,15 +118,7 @@ logError() {
 get_param_kv() {
   # prints value of KEY= from LAYOUT_FILE, empty if not present
   local key="$1"
-  awk -F= -v k="$key" '
-    $1==k {
-      sub(/#.*/, "", $2)
-      sub(/^[ \t]+/, "", $2)
-      sub(/[ \t]+$/, "", $2)
-      print $2
-      exit
-    }
-  ' "$LAYOUT_FILE"
+  grep -E "^${key}=" "$LAYOUT_FILE" | head -n1 | sed -E "s/^${key}=//"
 }
 
 # ---- Helper: run OCR for a single field --------------------------------------
@@ -307,8 +299,8 @@ if [[ -z "$OUTPUT_FILE" ]]; then
   OUTPUT_FILE="$(get_param_kv OUTPUT || true)"
   OUTPUT_FILE=$(echo "$OUTPUT_FILE" | tr -d '\r')
   if [[ -z "$OUTPUT_FILE" ]]; then
-      logWarn "WARNING: OUTPUT not defined neither via command line nor in param file. Using default 've-cedula-TIMESTAMP.json'."
-      OUTPUT_FILE="ve-cedula-TIMESTAMP.json"
+      logWarn "WARNING: OUTPUT not defined neither via command line nor in param file. Using default '$TMP_IMAGE_FILE_NAME-TIMESTAMP.json'."
+      OUTPUT_FILE="$TMP_IMAGE_FILE_NAME-TIMESTAMP.json"
   fi
   if [[ "$OUTPUT_FILE" != *"TIMESTAMP"* ]]; then
       logWarn "WARNING: OUTPUT does not contain TIMESTAMP placeholder. Adding it automatically."
@@ -353,7 +345,7 @@ if [[ -z "$BASE_IMAGE_WORK_ZONE_HEIGHT" ]]; then
 fi
 if [[ -n "$IMAGE_ENHANCE_CMD" ]]; then
   if [[ "$IMAGE_ENHANCE_CMD" != *"INPUT"* || "$IMAGE_ENHANCE_CMD" != *"OUTPUT"* ]]; then
-    logError "IMAGE_ENHANCE_CMD must contain INPUT and OUTPUT placeholders."
+    logError "IMAGE_ENHANCE_CMD must contain INPUT and OUTPUT placeholders. IMAGE_ENHANCE_CMD: $IMAGE_ENHANCE_CMD"
   fi
   IMAGE_ENHANCE_CMD_COMMAND="${IMAGE_ENHANCE_CMD%% *}"
   need_cmd "$IMAGE_ENHANCE_CMD_COMMAND"

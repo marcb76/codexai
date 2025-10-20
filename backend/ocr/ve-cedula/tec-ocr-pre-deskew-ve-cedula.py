@@ -158,7 +158,6 @@ def main():
 
 
     # Compute angle (in degrees). In image coords, Y grows downward.
-    # angle = atan2(deltaY, deltaX). If positive -> line slopes downward to the right.
     angle_deg = math.degrees(math.atan2((y_right - y_left), (x_right - x_left)))
     logInfo(f"Computed skew angle: {angle_deg:.3f} degrees")
 
