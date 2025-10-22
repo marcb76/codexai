@@ -1,9 +1,9 @@
 #!/bin/bash
-# ====================================================
+# =========================================================
 # tec-ocr-simulation.sh - Dummy OCR script for Linux/macOS
 # Accepts --image, --layout, --output and --quiet
 # Writes a dummy JSON file
-# ====================================================
+# =========================================================
 
 # Initialize variables
 IMAGE_FILE=""
