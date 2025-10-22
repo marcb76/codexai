@@ -7,7 +7,7 @@ export const environment = {
   // Application information
   appName: 'codexAI',
   appMoto: 'AI-Powered document scanning solution',
-  appVersion: 'v0.0.1 (Experimental)',
+  appVersion: 'v0.0.2 (Experimental)',
 
   // Backend configuration
   backendServer: 'codexai.eniac-corp.com',
