@@ -1,4 +1,4 @@
-<div class="grid justify-content-center">
+<div class="grid justify-content-center" [class.ocr-processing]="ocrServiceInvoked">
   <div class="col-12 md:col-8 lg:col-6 xl:col-4">
     <!-- 📁 SECTION 1: Document -->
     <div class="surface-0 shadow-2 border-round p-4 mb-4">
@@ -48,11 +48,12 @@
             <button
               type="button"
               (click)="onRunOCR()"
-              [disabled]="!documentPicture || ocrForm.invalid"
+              [disabled]="!documentPicture || ocrForm.invalid || ocrServiceInvoked"
               pButton
-              label="Read"
-              icon="pi pi-play"
+              [label]="ocrServiceInvoked ? 'Reading...' : 'Read'"
+              [icon]="ocrServiceInvoked ? 'pi pi-spin pi-spinner' : 'pi pi-play'"
               class="p-button-success p-button-sm"
+              [loading]="ocrServiceInvoked"
             >
             </button>
             <button

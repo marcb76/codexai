@@ -1,0 +1,23 @@
+// OCR Processing Loading State
+.ocr-processing {
+  cursor: wait !important;
+  
+  * {
+    cursor: wait !important;
+  }
+}
+
+// Button loading state
+.p-button[loading] {
+  cursor: wait !important;
+  opacity: 0.8;
+}
+
+.p-button[loading] .p-button-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

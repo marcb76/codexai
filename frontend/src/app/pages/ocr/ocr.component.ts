@@ -101,6 +101,9 @@ export class OcrComponent {
     // Call the OCR service
     this.ocrService.runOcr(request).subscribe({
       next: (response: ApiResponse<OcrResponse>) => {
+        // Reset loading state
+        this.ocrServiceInvoked = false;
+        
         // No errors in HTTP, check the response
         if (response.success && response.data) {
           // OCR successful... parse the data
@@ -119,6 +122,9 @@ export class OcrComponent {
         }
       },
       error: (err) =>{
+        // Reset loading state
+        this.ocrServiceInvoked = false;
+        
         // Network or unexpected HTTP error
         this.documentRead = false;
         this.ocrServiceInvokedSuccess = false;
