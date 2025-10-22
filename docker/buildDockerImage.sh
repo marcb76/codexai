@@ -102,7 +102,8 @@ echo ""
 echo ""
 echo "🎯 Refreshing codexAI's ssl folder..."
 if [ -d "./ssl" ]; then
-  rm -rf ./ssl || { echo "Failed to remove existing ssl directory"; exit 1; }
+  rm ./ssl/*.crt || { echo "Failed to remove existing ssl directory"; exit 1; }
+  rm ./ssl/*.key || { echo "Failed to remove existing ssl directory"; exit 1; }
 fi
 mkdir -p ssl || { echo "Failed to recreate ssl directory"; exit 1; }
 cp ../shared/assets/ssl/eniac-corp.com.crt ./ssl/ssl.crt || { echo "Failed to copy ssl certificate"; exit 1; }

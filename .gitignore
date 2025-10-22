@@ -99,3 +99,5 @@ docker/ssl/**/*.key
 docker/ssl/**/*.crt
 docker/ssl/**/*.pem
 docker/ssl/**/*.p12
+docker/Logs/
+docker/data/uploads/
