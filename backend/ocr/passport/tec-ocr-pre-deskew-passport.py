@@ -15,8 +15,9 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw
 
-SCRIPT_NAME = "tec-ocr-pre-deskew-passport.py"
 
+# ---- Global variables --------------------------------------------------------
+SCRIPT_NAME = os.path.basename(__file__)
 
 
 
@@ -24,14 +25,11 @@ SCRIPT_NAME = "tec-ocr-pre-deskew-passport.py"
 def logInfo(msg):
     if not quiet_mode:
         print(f"[INFO]  {msg}", file=sys.stdout)
-
 def logDebug(msg):
     if debug_mode:
         print(f"[DEBUG] {msg}", file=sys.stderr)
-
 def logWarn(msg):
     print(f"[WARN]  {msg}", file=sys.stderr)
-
 def logError(msg, exit=True, exit_code=1):
     print(f"[ERROR] {msg}", file=sys.stderr)
     if exit:
@@ -49,6 +47,7 @@ def find_mrz_angle(input_file, np_img):
     """
     Detects the angle of the MRZ area using edge and line detection.
     Returns the angle in degrees (positive = tilt to the right).
+    Automatically adjusts for vertical MRZs (rotated 90°).
     """
     gray = cv2.cvtColor(np_img, cv2.COLOR_RGB2GRAY)
     h, w = gray.shape
@@ -58,15 +57,18 @@ def find_mrz_angle(input_file, np_img):
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
     _, thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-
+    
     # Edges
     edges = cv2.Canny(thresh, 50, 150, apertureSize=3)
+    if debug_mode:
+        base_name, _ = os.path.splitext(os.path.basename(input_file))
+        edges_path = os.path.join("tmp", f"{base_name}-deskew-edges.png")
+        cv2.imwrite(edges_path, edges)
+        logDebug(f"Saved edge-detected image to: {edges_path}")
 
-
+    
     # Detect lines using Hough Transform
-    lines = cv2.HoughLinesP(edges, 1, np.pi / 180, threshold=100,
-                            minLineLength=w * 0.4, maxLineGap=20)
-
+    lines = cv2.HoughLinesP(edges, 1, np.pi / 180, threshold=100, minLineLength=w * 0.4, maxLineGap=20)
     if lines is None:
         logError("No lines detected with Hough. Cannot calculate deskew.", exit=False)
         return 0.0
@@ -89,13 +91,22 @@ def find_mrz_angle(input_file, np_img):
 
 
     # Select longest line closest to bottom (typical MRZ position)
-    horizontal.sort(key=lambda l: (-(l[5]), -(l[1] + l[3]) / 2))  # first by length, then by vertical position
+    horizontal.sort(key=lambda l: (-(l[5]), -(l[1] + l[3]) / 2))
     best_line = horizontal[0]
     x1, y1, x2, y2, angle, length = best_line
     logDebug(f"Selected MRZ line: ({x1},{y1})-({x2},{y2}) ang={angle:.3f} len={length:.1f}")
-    # If debug mode, save annotated image
+    corrected_angle = angle
+    if abs(angle) > 75:  # MRZ is vertical
+        center_x = (x1 + x2) / 2
+        if center_x > w / 2:
+            # MRZ on the right → rotate +90°
+            corrected_angle = 90
+            logDebug("MRZ detected on the RIGHT side → rotating -90°")
+        else:
+            # MRZ on the left → rotate -90°
+            corrected_angle = -90
+            logDebug("MRZ detected on the LEFT side → rotating +90°")
     if debug_mode:
-        base_name, base_ext = os.path.splitext(os.path.basename(input_file))
         mrz_path = os.path.join("tmp", f"{base_name}-deskew-mrz-line.png")
         img_debug = Image.fromarray(np_img)
         draw = ImageDraw.Draw(img_debug)
@@ -106,7 +117,7 @@ def find_mrz_angle(input_file, np_img):
         draw.rectangle([(0, top_y), (w - 1, bottom_y)], outline="yellow", width=3)
         img_debug.save(mrz_path)
         logDebug(f"Saved MRZ detected zone to: {mrz_path}")
-    return angle
+    return corrected_angle
 
 
 # ---- Image rotation function -------------------------------------------------
