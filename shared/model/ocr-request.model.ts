@@ -9,7 +9,7 @@ export const documentTypes = [
   { label: 'Estados Unidos - Passaporte',                            value: 'passport.param',   disabled: false },
   { label: 'Estados Unidos - Documento de Autorización de Trabajo',  value: 'us-ead.param',     disabled: true  },
   { label: 'Venezuela - Cédula de Identidad',                        value: 've-cedula.param',  disabled: false },
-  { label: 'Venezuela - Pasaporte',                                  value: 'pasaport.param',   disabled: false },
+  { label: 'Venezuela - Pasaporte',                                  value: 'passport.param',   disabled: false },
 ] as const;
 
 

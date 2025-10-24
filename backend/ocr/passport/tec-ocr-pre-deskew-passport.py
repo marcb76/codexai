@@ -45,7 +45,7 @@ def logError(msg, exit=True, exit_code=1):
 
 
 # ---- Image processing functions ----------------------------------------------
-def find_mrz_angle(np_img):
+def find_mrz_angle(input_file, np_img):
     """
     Detects the angle of the MRZ area using edge and line detection.
     Returns the angle in degrees (positive = tilt to the right).
@@ -151,7 +151,7 @@ def main():
 
 
     # Detect MRZ angle
-    angle_deg = find_mrz_angle(np_img)
+    angle_deg = find_mrz_angle(input_file, np_img)
     logInfo(f"Computed deskew angle: {angle_deg:.3f} degrees")
 
     
