@@ -72,6 +72,8 @@ backend/ocr/TO-DO.txt
 backend/ocr/tmp/
 backend/ocr/es-passport/images/
 backend/ocr/es-passport/tmp/
+backend/ocr/passport/images/
+backend/ocr/passport/tmp/
 backend/ocr/pr-license/images/
 backend/ocr/pr-license/tmp/
 backend/ocr/pr-sss/images/

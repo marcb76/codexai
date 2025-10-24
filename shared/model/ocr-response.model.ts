@@ -13,7 +13,7 @@ export interface OcrResponse {
 }
 // Example usage:
 // const response: OcrResponse = {
-//   documentLayout: 'us-passport.param',
+//   documentLayout: 'passport.param',
 //   documentPictureFilename: 'passport.jpg',
 //   documentData: { /* extracted data */ },
 //   ocrStartProcessing: new Date().toISOString(),

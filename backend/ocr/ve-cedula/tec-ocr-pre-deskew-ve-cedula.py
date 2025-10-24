@@ -159,7 +159,7 @@ def main():
 
     # Compute angle (in degrees). In image coords, Y grows downward.
     angle_deg = math.degrees(math.atan2((y_right - y_left), (x_right - x_left)))
-    logInfo(f"Computed skew angle: {angle_deg:.3f} degrees")
+    logInfo(f"Computed deskew angle: {angle_deg:.3f} degrees")
 
 
     # Rotate image to deskew
