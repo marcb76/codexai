@@ -1,0 +1,34 @@
+# Please note that lines starting with # are comments and will be ignored
+# Output json file (if not specified, defaults to ve-cedula-TIMESTAMP.json)
+# "TIMESTAMP" placeholder should be defined, if not it will be added (after filename and before file extension) automatically at runtime
+OUTPUT=ve-cedula-TIMESTAMP.json
+
+# Image rectification and crop work zone specification
+IMAGE_FORMAT_RECTIFICATION_SCRIPT=./ve-cedula/tec-ocr-pre-convert-to-png-ve-cedula.sh
+IMAGE_DESKEW_RECTIFICATION_SCRIPT=./ve-cedula/tec-ocr-pre-deskew-ve-cedula.sh
+IMAGE_CROP_WORK_ZONE_SCRIPT=./ve-cedula/tec-ocr-pre-crop-work-zone-ve-cedula.sh
+BASE_IMAGE_WORK_ZONE_WIDTH=440
+BASE_IMAGE_WORK_ZONE_HEIGHT=293
+
+# Enhance image command (optional but recommended, input and output file ["INPUT" and "OUTPUT" placeholders MUST BE DEFIMED] will be replaced at runtime)
+IMAGE_ENHANCE_CMD=convert "INPUT" -colorspace Gray -auto-level -contrast-stretch 0 -sharpen 0x1 -density 300 "OUTPUT"
+
+
+
+
+
+
+
+# Fields coordinates are based on image's reference work zone dimension. Actual fields coordinates will be extrapolated from image's actual work zone
+# Fields (please define at least one. See how to specify each one in the following line)
+# name|x|y|width|height|lang|psm|whitelist
+nationality|151|24|22|21|spa|10|EV
+number|172|24|110|21|spa|7|0123456789
+
+lastName|32|46|220|21|spa|7|
+firstName|32|71|220|21|spa|7|
+
+birthDate|97|153|93|19|spa|8|0123456789/
+civilState|188|153|102|19|spa|8|CASDOLTERIVU
+issueDate|98|213|91|19|spa|8|0123456789/
+expiryDate|190|213|89|19|spa|8|0123456789/

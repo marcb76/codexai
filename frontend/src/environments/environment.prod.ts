@@ -1,0 +1,20 @@
+// src/environments/environment.ts
+
+export const environment = {
+  // Production flag - always true in this file
+  production: true,
+
+  // Application information
+  appName: 'codexAI',
+  appMoto: 'AI-Powered document scanning solution',
+  appVersion: 'v0.0.2 (Experimental)',
+
+  // Backend configuration
+  backendServer: 'codexai.mbonet.xyz',
+  backendPort: 8443,
+  backendUseHttps: true,
+  backendAPITimeout: 15000, // in milliseconds
+  get backendAPIUrl(): string {
+    return (this.backendUseHttps ? 'https' : 'http') + '://' + this.backendServer + ':' + this.backendPort + '/api';
+  }
+};

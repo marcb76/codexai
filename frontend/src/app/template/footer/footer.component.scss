@@ -1,0 +1,17 @@
+/* 🔧 Media query for small screens (less than 512px) */
+@media (max-width: 512px) {
+  .footer-narrow {
+    display: none;
+  }
+}
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/* PrimeNG styles                                                             */
+/* -------------------------------------------------------------------------- */
+:host {
+  background-color: var(--p-menubar-background);
+  border-radius: 0px 0px 6px 6px;
+}

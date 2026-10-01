@@ -1,0 +1,25 @@
+/* 🔧 Media query for small screens (less than 512px) */
+@media (max-width: 512px) {
+  :host ::ng-deep .p-menubar-item-label {
+    display: none;
+  }
+}
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/* PrimeNG styles                                                             */
+/* -------------------------------------------------------------------------- */
+:host {
+  border-radius: 6px 6px 0px 0px;
+}
+:host ::ng-deep .p-menubar {
+  border-radius: 6px 6px 0px 0px;
+}
+:host ::ng-deep .p-menubar img {
+  height: 2.5rem !important;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}

@@ -1,0 +1,23 @@
+services:
+  tec-ocr:
+    image: marcb76/tec-codexai:1.0
+    container_name: tec-codexai
+    hostname: codexai.mbonet.xyz
+    extra_hosts:
+      - "codexai.mbonet.xyz:127.0.0.1"
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    volumes:
+#     - ./backend:/app/backend           # Backend Node
+#     - ./frontend:/app/frontend         # Frontend Angular
+#     - ./ssl:/app/ssl                   # SSL Certificates
+#     - ./nginx:/etc/nginx               # Nginx Configuration
+      - ./uploads:/app/uploads           # Uploaded files
+      - ./logs:/app/logs                 # Logs
+    ports:
+      - "443:443"      # HTTPS Nginx
+      - "8443:8443"    # HTTPS for Node.js / Express
+    environment:
+      - TZ=America/San_Juan
+#   command: bash

@@ -7,6 +7,16 @@ node_modules/
 dist/
 tmp/
 temp/
+frontend/test/
+backend/tec-ocr-simulation-output.json
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.flv
+*.wmv
+*.m4v
+*.webm
 
 
 # Environment variables
@@ -14,6 +24,7 @@ temp/
 .env
 .env.*
 !.env.sample
+README.pdf
 
 
 # Logs and reports
@@ -41,6 +52,14 @@ Thumbs.db
 *.tmp
 
 
+# SSL files
+# ======================================
+shared/assets/ssl/**/*.key
+shared/assets/ssl/**/*.crt
+shared/assets/ssl/**/*.pem
+shared/assets/ssl/**/*.p12
+
+
 # Node / Express (backend)
 # ======================================
 build/
@@ -48,8 +67,40 @@ out/
 uploads/
 
 
+# Bash / Python / OCR (backend)
+# ======================================
+backend/ocr/TO-DO.txt
+backend/ocr/tmp/
+backend/ocr/es-passport/images/
+backend/ocr/es-passport/tmp/
+backend/ocr/passport/images/
+backend/ocr/passport/tmp/
+backend/ocr/pr-license/images/
+backend/ocr/pr-license/tmp/
+backend/ocr/pr-sss/images/
+backend/ocr/pr-sss/tmp/
+backend/ocr/us-ead/images/
+backend/ocr/us-ead/tmp/
+backend/ocr/ve-cedula/images/
+backend/ocr/ve-cedula/tmp/
+backend/ocr/ve-passport/images/
+backend/ocr/ve-passport/tmp/
+
+
 # Angular (frontend)
 # ======================================
 .angular/
 .angular/cache/
 .angular/config.json
+
+
+# Docker deployment
+# ======================================
+docker/backend/
+docker/frontend/
+docker/ssl/**/*.key
+docker/ssl/**/*.crt
+docker/ssl/**/*.pem
+docker/ssl/**/*.p12
+docker/Logs/
+docker/data/uploads/

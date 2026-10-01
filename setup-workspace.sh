@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # ============================================
-# codexAI full stack project
+# codexAI full stack project - OCR solution
 # Workspace initialization script
 # 
 # Marc Bonet
-# The Eniac Corporation
 # August 2025
 # ============================================
 
@@ -19,7 +18,6 @@ echo "# codexAI full stack project"
 echo "# Workspace initialization script"
 echo "#"
 echo "# Marc Bonet"
-echo "# The Eniac Corporation"
 echo "# August 2025"
 echo "============================================"
 echo ""
@@ -185,7 +183,7 @@ EOF
       "test": "echo 'Error: no test specified' && exit 1",
       "format": "prettier --write '**/*.{js,json,scss,css,ts}'"
     },
-    "author": "Marc Bonet <marc.bonet@eniac-corp.com>",
+    "author": "Marc Bonet <marc.bonet.bretto@gmail.com>",
     "license": "See License in ../shared/assets/license.txt",
     "private": true
   }
@@ -279,7 +277,7 @@ if [ "$FRONTEND_SKIP" != true ]; then
     "description": "Frontend for codexAI",
     "author": {
       "name": "Marc Bonet",
-      "email": "marc.bonet@eniac-corp.com"
+      "email": "marc.bonet.bretto@gmail.com"
     },
     "private": true,
     "license": "See License in /shared/assets/license.txt",
@@ -296,7 +294,7 @@ if [ "$FRONTEND_SKIP" != true ]; then
 
   # Install frontend dependencies
   echo "📦 Installing frontend dependencies..."
-  npm install primeng@19 primeflex@3 date-fns || { echo "Failed to install frontend dependencies"; exit 1; }
+  npm install primeng@19 primeflex@3 primeicons@7 @primeuix/themes date-fns || { echo "Failed to install frontend dependencies"; exit 1; }
   npm install --save-dev prettier || { echo "Failed to install frontend dev dependencies"; exit 1; }
 
 
@@ -351,12 +349,12 @@ echo "📄 Creating license file..."
 cat > shared/assets/license.txt << 'EOF'
 Proprietary Software License Agreement
 
-Copyright © 2025 The Eniac Corporation (TEC). All rights reserved.
+Copyright © 2025 Marc Bonet. All rights reserved.
 
-This software and its associated documentation are proprietary products of The Eniac Corporation (TEC) and are protected under applicable intellectual property laws of the United States and Puerto Rico. By installing, copying, or otherwise using this software, you agree to be bound by the terms of this license.
+This software and its associated documentation are proprietary products of Marc Bonet and are protected under applicable intellectual property laws of the United States and Puerto Rico. By installing, copying, or otherwise using this software, you agree to be bound by the terms of this license.
 
 1. Grant of License
-TEC grants you a limited, non-exclusive, non-transferable, and revocable license to use this software solely for internal purposes and in accordance with the documentation provided. No other rights are granted.
+Marc Bonet grants you a limited, non-exclusive, non-transferable, and revocable license to use this software solely for internal purposes and in accordance with the documentation provided. No other rights are granted.
 
 2. Restrictions
 You may not:
@@ -365,13 +363,13 @@ You may not:
 - Remove or alter any proprietary notices or labels on the software.
 
 3. Ownership
-All rights, title, and interest in and to the software, including all intellectual property rights, remain exclusively with TEC. This license does not constitute a sale of the software or any of its components.
+All rights, title, and interest in and to the software, including all intellectual property rights, remain exclusively with Marc Bonet. This license does not constitute a sale of the software or any of its components.
 
 4. Disclaimer of Warranty
 This software is provided "AS IS" without warranty of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.
 
 5. Limitation of Liability
-In no event shall TEC be liable for any direct, indirect, incidental, special, or consequential damages arising out of the use or inability to use the software, even if TEC has been advised of the possibility of such damages.
+In no event shall Marc Bonet be liable for any direct, indirect, incidental, special, or consequential damages arising out of the use or inability to use the software, even if Marc Bonet has been advised of the possibility of such damages.
 
 6. Governing Law
 This agreement shall be governed by and construed in accordance with the laws of the United States and the Commonwealth of Puerto Rico. Any disputes arising under or in connection with this license shall be subject to the exclusive jurisdiction of the courts located in Puerto Rico.
@@ -407,11 +405,11 @@ echo ""
 echo "✅ All done!"
 echo "✅ codexAI workspace setup complete!"
 echo ""
-echo "In order to incorporate this project into your gitlab installation, please follow these steps:"
+echo "In order to incorporate this project into your GitHub installation, please follow these steps:"
 echo "  1. Create a new repository in GitLab."
 echo "     This is performed in the GitLab web interface."
 echo "       ** remember to get the repository URL! **"
-echo "          This value should be in the format: https://gitlab.eniac-corp.com/username/codexai.git"
+echo "          This value should be in the format: https://github.com/marcb76/codexai.git"
 echo "  2. Add the GitLab remote to your local repository."
 echo "     This is performed in the command line: "
 echo "       git remote add origin <repository-url>"
