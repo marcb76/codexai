@@ -9,7 +9,7 @@ const { get } = require('../controller/ping');
 
 
 
-// https://codexai.eniac-corp.com/api/ping
+// https://codexai.mbonet.xyz/api/ping
 router.get('/', get);
 
 module.exports = router;

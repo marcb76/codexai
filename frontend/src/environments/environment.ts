@@ -10,7 +10,7 @@ export const environment = {
   appVersion: 'v0.0.2 (Experimental)',
 
   // Backend configuration
-  backendServer: 'codexai.eniac-corp.com',
+  backendServer: 'codexai.mbonet.xyz',
   backendPort: 8443,
   backendUseHttps: true,
   backendAPITimeout: 15000, // in milliseconds

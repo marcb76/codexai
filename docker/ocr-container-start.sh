@@ -7,7 +7,6 @@
 # Starts Nginx and Node.js backend, then keeps container alive
 #
 # Marc Bonet
-# The Eniac Corporation
 # Copyright TEC - Ago.2025
 # ------------------------------------------------------------------------------
 

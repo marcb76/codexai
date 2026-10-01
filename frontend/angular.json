@@ -80,10 +80,10 @@
             "development": {
               "buildTarget": "codexAI:build:development",
               "ssl": true,
-              "sslKey": "../shared/assets/ssl/eniac-corp.com.key",
-              "sslCert": "../shared/assets/ssl/eniac-corp.com.crt",
+              "sslKey": "../shared/assets/ssl/mbonet.xyz.key",
+              "sslCert": "../shared/assets/ssl/mbonet.xyz.crt",
               "port": 443,
-              "host": "codexai.eniac-corp.com"              
+              "host": "codexai.mbonet.xyz"              
             }
           },
           "defaultConfiguration": "development"

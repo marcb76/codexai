@@ -11,7 +11,7 @@ const { post } = require('../controller/ocr');
 
 
 
-// https://codexai.eniac-corp.com/api/ocr
+// https://codexai.mbonet.xyz/api/ocr
 router.post('/', uploadDocumentPicture, logRequest, validatePost, post);
 
 module.exports = router;

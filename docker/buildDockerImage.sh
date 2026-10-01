@@ -5,7 +5,6 @@
 # Docker image build script
 # 
 # Marc Bonet
-# The Eniac Corporation
 # October 2025
 # ============================================
 
@@ -41,7 +40,6 @@ echo "# codexAI full stack project"
 echo "# Docker image build script: $DOCKER_WHOLE_IMAGE_NAME"
 echo "#"
 echo "# Marc Bonet"
-echo "# The Eniac Corporation"
 echo "# October 2025"
 echo "====================================================="
 echo ""
@@ -106,8 +104,8 @@ if [ -d "./ssl" ]; then
   rm ./ssl/*.key || { echo "Failed to remove existing ssl directory"; exit 1; }
 fi
 mkdir -p ssl || { echo "Failed to recreate ssl directory"; exit 1; }
-cp ../shared/assets/ssl/eniac-corp.com.crt ./ssl/ssl.crt || { echo "Failed to copy ssl certificate"; exit 1; }
-cp ../shared/assets/ssl/eniac-corp.com.key ./ssl/ssl.key || { echo "Failed to copy ssl key"; exit 1; }
+cp ../shared/assets/ssl/mbonet.xyz.crt ./ssl/ssl.crt || { echo "Failed to copy ssl certificate"; exit 1; }
+cp ../shared/assets/ssl/mbonet.xyz.key ./ssl/ssl.key || { echo "Failed to copy ssl key"; exit 1; }
 echo "✅ SSL folder refreshed successfully."
 
 

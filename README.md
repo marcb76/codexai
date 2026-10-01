@@ -58,8 +58,8 @@ Variables in `.env.sample`:
 | `DEBUG_MODE` | When `true`, retains temporary files and increases log detail. | `false` |
 | `BACKEND_HTTP_PORT` | Backend HTTP port. | `8080` |
 | `BACKEND_HTTPS_PORT` | Backend HTTPS port. | `8443` |
-| `BACKEND_SSL_CERTIFICATE` | Certificate path; relative paths resolve from `backend/`. | `../shared/assets/ssl/eniac-corp.com.crt` |
-| `BACKEND_SSL_CERTIFICATE_KEY` | TLS key path; relative paths resolve from `backend/`. | `../shared/assets/ssl/eniac-corp.com.key` |
+| `BACKEND_SSL_CERTIFICATE` | Certificate path; relative paths resolve from `backend/`. | `../shared/assets/ssl/mbonet.xyz.crt` |
+| `BACKEND_SSL_CERTIFICATE_KEY` | TLS key path; relative paths resolve from `backend/`. | `../shared/assets/ssl/mbonet.xyz.key` |
 | `OCR_DOCUMENT_PICTURE_UPLOAD_DIRECTORY` | Temporary directory for uploaded images. | `../shared/uploads` |
 | `OCR_DOCUMENT_PICTURE_MAX_FILE_SIZE_IN_MB` | Maximum image size, in MB. | `5` |
 | `OCR_SIMULATION_MODE` | Uses the simulation script instead of real OCR. | `false` |
@@ -93,7 +93,7 @@ cd frontend
 npm start
 ```
 
-Angular's development configuration uses HTTPS on port 443 and the host `codexai.eniac-corp.com`, and expects certificates under `shared/assets/ssl/`. Adjust the host, certificates, and backend URL in `frontend/src/environments/environment.ts` for your environment. The backend HTTPS server defaults to port 8443. To simulate OCR, set `OCR_SIMULATION_MODE=true` in `backend/.env`. The simulation returns dummy data and may produce a simulated error.
+Angular's development configuration uses HTTPS on port 443 and the host `codexai.mbonet.xyz`, and expects certificates under `shared/assets/ssl/`. Adjust the host, certificates, and backend URL in `frontend/src/environments/environment.ts` for your environment. The backend HTTPS server defaults to port 8443. To simulate OCR, set `OCR_SIMULATION_MODE=true` in `backend/.env`. The simulation returns dummy data and may produce a simulated error.
 
 Available commands:
 
@@ -124,7 +124,7 @@ See `backend/route/validator/` for validation rules and `backend/ocr/layouts/` f
 - Port 8443 for the backend HTTPS server.
 - Local persistent volumes `docker/uploads/` and `docker/logs/`.
 
-The container sets its hostname to `codexai.eniac-corp.com`. Run Compose with:
+The container sets its hostname to `codexai.mbonet.xyz`. Run Compose with:
 
 ```bash
 cd docker
@@ -143,4 +143,4 @@ Review that script before using it: it deletes and recopies directories under `d
 
 ## License
 
-`shared/assets/license.txt` describes the software as proprietary to The Eniac Corporation. Review it before using, modifying, or distributing the project.
+`shared/assets/license.txt` describes the software as proprietary to Marc Bonet. Review it before using, modifying, or distributing the project.

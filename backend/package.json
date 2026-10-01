@@ -4,7 +4,7 @@
     "description": "Backend for codexAI",
     "author": {
         "name": "Marc Bonet",
-        "email": "marc.bonet@eniac-corp.com"
+        "email": "marc.bonet.bretto@gmail.com"
     },
     "license": "See License in ../shared/assets/license.txt",
     "private": true,

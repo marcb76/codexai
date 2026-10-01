@@ -3,7 +3,6 @@
 # Dockerfile
 #
 # Marc Bonet
-# The Eniac Corporation
 # Copyright TEC - Ago.2025
 # ------------------------------------------------------------------------------
 

@@ -9,9 +9,9 @@ This folder is intended to store the **local SSL certificates** required to run 
 
 ## Expected usage
 1. Copy the corresponding files into this folder:
-   - `eniac-corp.com.crt`
-   - `eniac-corp.com.key`
+   - `mbonet.xyz.crt`
+   - `mbonet.xyz.key`
 2. Make sure the paths configured in `angular.json` point to these files, for example:
    ```json
-   "sslKey": "shared/assets/ssl/eniac-corp.com.key",
-   "sslCert": "shared/assets/ssl/eniac-corp.com.crt"
+   "sslKey": "shared/assets/ssl/mbonet.xyz.key",
+   "sslCert": "shared/assets/ssl/mbonet.xyz.crt"
