@@ -24,6 +24,7 @@ backend/tec-ocr-simulation-output.json
 .env
 .env.*
 !.env.sample
+README.pdf
 
 
 # Logs and reports
